@@ -1,0 +1,102 @@
+import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+
+/**
+ * Results gallery — one auto-scrolling row of cards.
+ *
+ * TODO: drop the client's approved result photos into `image` (any https URL —
+ * Cloudinary is already whitelisted in next.config.ts, or use a path under
+ * /public). Cards render a branded placeholder while a slot is empty.
+ */
+const RESULTS = [
+  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: '' },
+  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: '' },
+  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: '' },
+  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: '' },
+  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: '' },
+] as const;
+
+function ResultCard({ item }: { item: (typeof RESULTS)[number] }) {
+  return (
+    <div className="mr-5 w-[250px] flex-shrink-0 overflow-hidden rounded-2xl border border-[#E3CC9D] bg-white shadow-sm transition-shadow hover:shadow-md sm:w-[290px] lg:w-[320px]">
+      {item.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={item.image}
+          alt={`${item.title} treatment result`}
+          loading="lazy"
+          className="h-[230px] w-full object-cover sm:h-[260px]"
+        />
+      ) : (
+        <div className="flex h-[230px] w-full items-center justify-center bg-[#E3CC9D]/20 sm:h-[260px]">
+          <span
+            className="material-symbols-outlined text-[38px] text-[#4E5426]/25"
+            style={{ fontVariationSettings: '"FILL" 1' }}
+          >
+            {item.icon}
+          </span>
+        </div>
+      )}
+
+      <div className="p-5">
+        <h3 className="font-heading text-[15px] font-bold leading-snug text-[#1E2115] sm:text-[16px]">
+          {item.title}
+        </h3>
+      </div>
+    </div>
+  );
+}
+
+export function BeforeAfterSection() {
+  return (
+    <section id="results" className="overflow-hidden bg-white py-8 md:py-10 lg:py-12">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-[60px]">
+
+        {/* Header */}
+        <AnimateOnScroll animation="fade-down" className="mb-6 text-center md:mb-8">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D] bg-white px-3 py-1">
+            <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
+              photo_library
+            </span>
+            <span className="font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+              Before &amp; After
+            </span>
+          </span>
+
+          <h2 className="mt-3 font-heading text-[24px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
+            Real Results, <span className="text-[#4E5426]">Real Transformations</span>
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-[620px] font-body text-[14px] leading-[1.8] text-[#5F6352] sm:text-[15px]">
+            Results from our most requested skin, hair and body treatments — every plan built
+            around the individual concern it was designed to solve.
+          </p>
+        </AnimateOnScroll>
+      </div>
+
+      {/* Auto-scrolling single row — pauses on hover */}
+      {/* py-2 keeps the card borders and shadows off the overflow-hidden clip edge */}
+      <AnimateOnScroll animation="fade-up" className="marquee-viewport w-full overflow-hidden py-2">
+        <div className="marquee-track" style={{ '--marquee-duration': '38s' } as React.CSSProperties}>
+          {/* The list is rendered twice so the loop is seamless at translateX(-50%) */}
+          {[...RESULTS, ...RESULTS].map((item, i) => (
+            <ResultCard key={`${item.id}-${i}`} item={item} />
+          ))}
+        </div>
+      </AnimateOnScroll>
+
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-[60px]">
+        {/* CTA */}
+        <AnimateOnScroll animation="fade-up" delay={200} className="mt-7 flex justify-center md:mt-8">
+          <a
+            href="#consultation"
+            className="font-body inline-flex items-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px] md:px-10"
+          >
+            Book Your Consultation Today
+            <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
+          </a>
+        </AnimateOnScroll>
+      </div>
+
+    </section>
+  );
+}

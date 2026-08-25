@@ -1,0 +1,362 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   ECLORA AESTHETICS — BRAND PALETTE
+   ============================================= */
+
+/* Two brand colours on white. Every surface is white or brand olive;
+   brand sand is used for borders, accents and light-on-olive text. */
+:root {
+  /* Brand olive — hovers use the same colour at 90% alpha, not a second shade */
+  --brand-primary: #4E5426;
+
+  /* Brand sand */
+  --brand-sand: #E3CC9D;
+
+  /* Surfaces — white only; sand at low alpha for chips and hovers */
+  --bg-white: #FFFFFF;
+  --bg-tint: rgba(227, 204, 157, 0.2);
+
+  /* Text */
+  --text-primary: #1E2115;
+  --text-secondary: #5F6352;
+  --text-muted: #8A8D80;
+
+  /* Borders */
+  --border-light: #E3CC9D;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-white);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* =============================================
+   KEYFRAMES
+   ============================================= */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.90); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* =============================================
+   HERO CINEMATIC ENTRANCE
+   ============================================= */
+
+.hero-anim-label {
+  animation: fadeInDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+}
+.hero-anim-title {
+  animation: fadeInUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
+}
+.hero-anim-desc {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+}
+.hero-anim-badges {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s both;
+}
+.hero-anim-ctas {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s both;
+}
+.hero-anim-video {
+  animation: scaleIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+/* =============================================
+   SCROLL-TRIGGERED ANIMATION BASE STATES
+   ============================================= */
+
+.anim-fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.anim-fade-down {
+  opacity: 0;
+  transform: translateY(-32px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.anim-fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.anim-fade-left {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.anim-fade-right {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* On desktop restore proper directional animations */
+@media (min-width: 1024px) {
+  .anim-fade-left {
+    transform: translateX(-40px);
+  }
+  .anim-fade-right {
+    transform: translateX(40px);
+  }
+}
+
+.anim-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Triggered visible state */
+.in-view {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* =============================================
+   AUTO-SCROLLING CARD ROW (marquee)
+   ============================================= */
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 38s) linear infinite;
+  will-change: transform;
+}
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Fade the row out at both edges so cards enter and leave softly */
+.marquee-viewport {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* =============================================
+   TRAVELLING CARD HIGHLIGHT
+   One card at a time flips to solid olive, left to right, on a loop.
+   Each card carries its index as --i; the negative delay offsets it
+   into the shared cycle so the highlight lands on it in turn.
+   ============================================= */
+
+.cc-row {
+  --cc-step: 2s;   /* how long each card stays highlighted */
+  --cc-cycle: 10s; /* --cc-step × number of cards */
+}
+
+.cc-card,
+.cc-card .cc-icon,
+.cc-card .cc-title,
+.cc-card .cc-desc {
+  animation-duration: var(--cc-cycle);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-delay: calc(var(--i) * var(--cc-step) - var(--cc-cycle));
+}
+
+.cc-card { animation-name: cc-bg; }
+.cc-card .cc-icon { animation-name: cc-icon; }
+.cc-card .cc-title { animation-name: cc-title; }
+.cc-card .cc-desc { animation-name: cc-desc; }
+
+@keyframes cc-bg {
+  0%, 18%  { background-color: #4E5426; }
+  22%, 96% { background-color: rgba(227, 204, 157, 0.25); }
+  100%     { background-color: #4E5426; }
+}
+@keyframes cc-icon {
+  0%, 18%  { color: #E3CC9D; }
+  22%, 96% { color: #4E5426; }
+  100%     { color: #E3CC9D; }
+}
+@keyframes cc-title {
+  0%, 18%  { color: #FFFFFF; }
+  22%, 96% { color: #1E2115; }
+  100%     { color: #FFFFFF; }
+}
+@keyframes cc-desc {
+  0%, 18%  { color: rgba(255, 255, 255, 0.75); }
+  22%, 96% { color: #5F6352; }
+  100%     { color: rgba(255, 255, 255, 0.75); }
+}
+
+/* =============================================
+   BUTTON ANIMATIONS
+   ============================================= */
+
+@keyframes btn-shimmer {
+  0%   { transform: translateX(-130%) skewX(-15deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(260%) skewX(-15deg); opacity: 0; }
+}
+
+@keyframes btn-breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.04); }
+}
+
+@keyframes btn-icon-pop {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.13); }
+}
+
+/* Solid filled button */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  animation: btn-breathe 2s ease-in-out infinite;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 50%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-130%) skewX(-15deg);
+  pointer-events: none;
+}
+.btn-primary:hover {
+  animation: none;
+  transform: translateY(-6px) scale(1.07);
+  box-shadow: 0 18px 45px rgba(92, 97, 64, 0.45), 0 0 0 4px rgba(92, 97, 64, 0.12);
+}
+.btn-primary:hover::before {
+  animation: btn-shimmer 0.65s ease forwards;
+}
+.btn-primary:active {
+  animation: none;
+  transform: translateY(1px) scale(0.96);
+  transition-duration: 0.07s;
+  box-shadow: 0 3px 10px rgba(92, 97, 64, 0.3);
+}
+
+/* Small icon circle button (social, carousel arrows etc.) */
+.btn-icon {
+  will-change: transform;
+  animation: btn-icon-pop 2s ease-in-out infinite;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+.btn-icon:hover {
+  animation: none;
+  transform: translateY(-4px) scale(1.25);
+  box-shadow: 0 8px 22px rgba(92, 97, 64, 0.3);
+}
+.btn-icon:active {
+  animation: none;
+  transform: scale(0.88);
+  transition-duration: 0.07s;
+}
+
+/* =============================================
+   ACCESSIBILITY: respect reduced-motion
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim-label,
+  .hero-anim-title,
+  .hero-anim-desc,
+  .hero-anim-badges,
+  .hero-anim-ctas,
+  .hero-anim-video {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .anim-fade-up,
+  .anim-fade-down,
+  .anim-fade-in,
+  .anim-fade-left,
+  .anim-fade-right,
+  .anim-scale-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-track {
+    animation: none;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  /* No travelling highlight — leave the first card statically highlighted */
+  .cc-card,
+  .cc-card .cc-icon,
+  .cc-card .cc-title,
+  .cc-card .cc-desc {
+    animation: none;
+  }
+  .cc-row .cc-card:first-child { background-color: #4E5426; }
+  .cc-row .cc-card:first-child .cc-icon { color: #E3CC9D; }
+  .cc-row .cc-card:first-child .cc-title { color: #FFFFFF; }
+  .cc-row .cc-card:first-child .cc-desc { color: rgba(255, 255, 255, 0.75); }
+
+  .btn-primary,
+  .btn-icon {
+    animation: none;
+    transition: none;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-primary::before { display: none; }
+}
