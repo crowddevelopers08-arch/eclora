@@ -30,12 +30,12 @@ export function HeroSection() {
             {/* Eyebrow */}
             <div className="hero-anim-label mb-4 inline-flex items-center gap-2 rounded-full border border-[#4E5426]/20 bg-[#E3CC9D]/20 px-4 py-1.5 lg:mb-3 xl:mb-4">
               <span className="h-1.5 w-1.5 rounded-full bg-[#4E5426]" />
-              <span className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-[#4E5426] sm:text-[12px] xl:text-[13px]">
+              <span className="font-label text-[11px] font-bold uppercase tracking-[0.2em] text-[#4E5426] sm:text-[12px] xl:text-[13px]">
                 {SITE.name}
               </span>
             </div>
 
-            <h1 className="hero-anim-title font-heading text-[28px] font-extrabold leading-[1.18] text-[#1E2115] sm:text-[34px] md:text-[40px] lg:text-[30px] xl:text-[40px] 2xl:text-[46px]">
+            <h1 className="hero-anim-title font-heading text-[28px] font-bold tracking-[-0.01em] leading-[1.18] text-[#1E2115] sm:text-[34px] md:text-[40px] lg:text-[30px] xl:text-[40px] 2xl:text-[46px]">
               Advanced Skin, Hair &amp; Body Treatments For{' '}
               <span className="text-[#4E5426]">Visible, Confidence-Boosting</span>{' '}
               Results

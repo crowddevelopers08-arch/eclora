@@ -11,7 +11,7 @@ export function FinalCtaSection() {
           >
             <div className="mx-auto max-w-[720px]">
 
-              <h2 className="font-heading text-[26px] font-extrabold leading-[1.18] text-[#1E2115] sm:text-[30px] md:text-[36px] lg:text-[40px]">
+              <h2 className="font-heading text-[26px] font-bold tracking-[-0.01em] leading-[1.18] text-[#1E2115] sm:text-[30px] md:text-[36px] lg:text-[40px]">
                 Ready To Begin Your{' '}
                 <span className="text-[#4E5426]">Transformation?</span>
               </h2>

@@ -215,7 +215,7 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
 
       <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
         <Stars size={15} />
-        <span className="font-body text-[11px] font-bold uppercase tracking-[0.12em] text-[#4E5426]">
+        <span className="font-label text-[11px] font-bold uppercase tracking-[0.12em] text-[#4E5426]">
           {review.treatment}
         </span>
       </div>
@@ -314,16 +314,16 @@ export function TestimonialVideoSection() {
         <AnimateOnScroll animation="fade-down" className="mb-6 text-center md:mb-8">
           <div className="inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 rounded-full border border-[#E3CC9D] bg-white px-4 py-2">
             <GoogleMark size={18} />
-            <span className="font-heading text-[16px] font-extrabold leading-none text-[#1E2115] sm:text-[17px]">
+            <span className="font-heading text-[16px] font-bold tracking-[-0.01em] leading-none text-[#1E2115] sm:text-[17px]">
               {RATING}
             </span>
             <Stars size={16} />
-            <span className="font-body text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5F6352] sm:text-[13px]">
-              {REVIEW_COUNT} Google Reviews
+            <span className="font-label text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5F6352] sm:text-[13px]">
+               Google Reviews
             </span>
           </div>
 
-          <h2 className="mt-4 font-heading text-[24px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
+          <h2 className="mt-4 font-heading text-[24px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
             What Our <span className="text-[#4E5426]">Patients Say</span>
           </h2>
         </AnimateOnScroll>

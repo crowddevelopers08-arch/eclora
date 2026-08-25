@@ -10,12 +10,12 @@ export function ExperienceSection() {
           <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
             diamond
           </span>
-          <span className="font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+          <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
             The Eclora Standard
           </span>
         </span>
 
-        <h2 className="mt-4 font-heading text-[24px] font-extrabold leading-[1.22] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[38px]">
+        <h2 className="mt-4 font-heading text-[24px] font-bold tracking-[-0.01em] leading-[1.22] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[38px]">
           Experience A New Standard Of{' '}
           <span className="text-[#4E5426]">Aesthetic Care</span>
         </h2>

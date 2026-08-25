@@ -67,7 +67,7 @@ export function Footer() {
 
         {/* Treatments */}
         <div className="space-y-5">
-          <h4 className="font-heading text-[12px] font-bold uppercase tracking-[0.2em] text-[#E3CC9D]">
+          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Our Treatments
           </h4>
           <ul className="space-y-3">
@@ -87,7 +87,7 @@ export function Footer() {
 
         {/* Quick links */}
         <div className="space-y-5">
-          <h4 className="font-heading text-[12px] font-bold uppercase tracking-[0.2em] text-[#E3CC9D]">
+          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Quick Links
           </h4>
           <ul className="space-y-3">
@@ -107,7 +107,7 @@ export function Footer() {
 
         {/* Contact */}
         <div className="space-y-5">
-          <h4 className="font-heading text-[12px] font-bold uppercase tracking-[0.2em] text-[#E3CC9D]">
+          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Contact Us
           </h4>
 
@@ -162,7 +162,7 @@ export function Footer() {
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
           <a
-            className="font-body text-[12px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 transition-colors hover:text-[#E3CC9D]"
+            className="font-label text-[12px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 transition-colors hover:text-[#E3CC9D]"
             href="/privacy-policy"
           >
             Privacy Policy

@@ -7,30 +7,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      /* One typeface site-wide — `font-heading` / `font-body` / `font-label`
+         are kept as separate tokens purely so intent stays readable in the
+         markup; all three resolve to Jost. */
       fontFamily: {
-        heading: ["var(--font-heading)"],
-        body: ["var(--font-body)"],
+        heading: ["var(--font-jost)", "system-ui", "sans-serif"],
+        body: ["var(--font-jost)", "system-ui", "sans-serif"],
+        label: ["var(--font-jost)", "system-ui", "sans-serif"],
       },
       colors: {
         brand: {
-          DEFAULT: "#4E532B",
-          dark: "#3D4222",
-          olive: "#737852",
-          tint: "#EEF0E7",
-        },
-        surface: {
-          white: "#FFFFFF",
-          warm: "#FAFAF7",
-          cream: "#F6F6F0",
-          section: "#F1F2EB",
-          hover: "#E9EBDD",
+          DEFAULT: "#4E5426",
+          sand: "#E3CC9D",
         },
         ink: {
           DEFAULT: "#1E2115",
           secondary: "#5F6352",
           muted: "#8A8D80",
         },
-        hairline: "#E2E4DA",
+        hairline: "#E3CC9D",
       },
     },
   },

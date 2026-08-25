@@ -37,10 +37,10 @@ export default function PrivacyPolicyPage() {
       {/* Hero band */}
       <div className="bg-[#4E5426] px-4 py-8 sm:px-6 sm:py-10 md:px-[60px] md:py-14">
         <div className="mx-auto max-w-[800px]">
-          <p className="mb-2 font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-[#E3CC9D] sm:text-[12px]">
+          <p className="mb-2 font-label text-[11px] font-semibold uppercase tracking-[0.2em] text-[#E3CC9D] sm:text-[12px]">
             Legal
           </p>
-          <h1 className="font-heading text-[28px] font-extrabold leading-[1.2] text-white sm:text-[34px] md:text-[44px]">
+          <h1 className="font-heading text-[28px] font-bold tracking-[-0.01em] leading-[1.2] text-white sm:text-[34px] md:text-[44px]">
             Privacy Policy
           </h1>
           <p className="mt-2 font-body text-[13px] leading-[1.6] text-white/55 sm:text-[14px]">

@@ -29,12 +29,12 @@ export function WhoCanBenefitSection() {
               >
                 help
               </span>
-              <span className="font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+              <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
                 Is This For You?
               </span>
             </span>
 
-            <h2 className="mt-4 font-heading text-[24px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[28px] lg:text-[28px] xl:text-[32px]">
+            <h2 className="mt-4 font-heading text-[24px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[28px] lg:text-[28px] xl:text-[32px]">
               Who Can Benefit From{' '}
               <span className="text-[#4E5426]">Our Treatments?</span>
             </h2>

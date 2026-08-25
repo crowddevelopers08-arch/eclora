@@ -67,10 +67,10 @@ export default function ThankYouPage() {
             </span>
           </div>
 
-          <h1 className="font-heading text-[32px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[40px] md:text-[46px]">
+          <h1 className="font-heading text-[32px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[40px] md:text-[46px]">
             You&rsquo;re All Set!
           </h1>
-          <p className="mt-3 font-body text-[13px] font-semibold uppercase tracking-[0.16em] text-[#4E5426]/70">
+          <p className="mt-3 font-label text-[13px] font-semibold uppercase tracking-[0.16em] text-[#4E5426]/70">
             Consultation Request Received
           </p>
 

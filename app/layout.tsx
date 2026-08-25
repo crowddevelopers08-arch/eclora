@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Open_Sans } from "next/font/google";
+import { Jost } from "next/font/google";
 import Script from "next/script";
+import { ConsultationModal } from "@/components/ConsultationModal";
 import "./globals.css";
 
-const ebGaramond = EB_Garamond({
+/* Single typeface across the whole site: Jost, per the brand's
+   `font-family: 'Jost', system-ui, sans-serif`. The heading / body / label
+   tokens all resolve to it so weight and tracking carry the hierarchy. */
+const jost = Jost({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-heading",
-});
-
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-body",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-jost",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -96,9 +95,10 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${ebGaramond.variable} ${openSans.variable} font-body selection:bg-[#4E5426] selection:text-[#E3CC9D]`}
+        className={`${jost.variable} font-body antialiased selection:bg-[#4E5426] selection:text-[#E3CC9D]`}
       >
         {children}
+        <ConsultationModal />
       </body>
     </html>
   );

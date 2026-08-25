@@ -40,12 +40,12 @@ export function JourneySection() {
             <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
               route
             </span>
-            <span className="font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+            <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
               How It Works
             </span>
           </span>
 
-          <h2 className="mt-3 font-heading text-[24px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
+          <h2 className="mt-3 font-heading text-[24px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
             Your Journey At <span className="text-[#4E5426]">Eclora</span>
           </h2>
         </AnimateOnScroll>
@@ -68,7 +68,7 @@ export function JourneySection() {
                     <step.Icon aria-hidden strokeWidth={1.75} className="h-6 w-6 text-white" />
                   </div>
 
-                  <h3 className="mt-4 font-body text-[13px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[14px]">
+                  <h3 className="mt-4 font-label text-[13px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[14px]">
                     Step {step.num}
                   </h3>
 

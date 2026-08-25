@@ -57,12 +57,12 @@ export function BeforeAfterSection() {
             <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
               photo_library
             </span>
-            <span className="font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+            <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
               Before &amp; After
             </span>
           </span>
 
-          <h2 className="mt-3 font-heading text-[24px] font-extrabold leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
+          <h2 className="mt-3 font-heading text-[24px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[28px] md:text-[32px] lg:text-[36px]">
             Real Results, <span className="text-[#4E5426]">Real Transformations</span>
           </h2>
 
