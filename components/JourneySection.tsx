@@ -38,10 +38,10 @@ export function JourneySection() {
 
         <AnimateOnScroll animation="fade-down" className="mb-7 text-center md:mb-8">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D] bg-white px-3 py-1">
-            <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
+            <span className="material-symbols-outlined text-[15px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
               route
             </span>
-            <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+            <span className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[14px]">
               How It Works
             </span>
           </span>
@@ -73,15 +73,15 @@ export function JourneySection() {
                     <step.Icon aria-hidden strokeWidth={1.75} className="h-6 w-6 text-white" />
                   </div>
 
-                  <h3 className="mt-4 font-label text-[13px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[14px]">
+                  <h3 className="mt-4 font-label text-[15px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[16px]">
                     Step {step.num}
                   </h3>
 
-                  <p className="mt-1.5 font-heading text-[15px] font-bold leading-[1.3] text-[#4E5426] sm:text-[16px]">
+                  <p className="mt-1.5 font-heading text-[16px] font-bold leading-[1.3] text-[#4E5426] sm:text-[16px]">
                     {step.title}
                   </p>
 
-                  <p className="mt-2.5 max-w-[280px] font-body text-[13px] leading-[1.8] text-[#5F6352] sm:text-[14px]">
+                  <p className="mt-2.5 max-w-[280px] font-body text-[15px] leading-[1.8] text-[#5F6352] sm:text-[16px]">
                     {step.desc}
                   </p>
                 </div>
@@ -93,7 +93,7 @@ export function JourneySection() {
         <AnimateOnScroll animation="fade-up" delay={280} className="mt-7 flex justify-center md:mt-8">
           <BlobButton
             href="#consultation"
-            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
+            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[16px] font-semibold shadow-md sm:text-[16px] md:px-10"
           >
             Start With A Consultation
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>

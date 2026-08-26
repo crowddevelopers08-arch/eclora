@@ -11,10 +11,10 @@ export function LeadFormSection() {
         {/* LEFT — The Eclora Standard */}
         <div className="text-center lg:text-left">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D]/30 bg-[#E3CC9D]/10 px-3 py-1">
-            <span className="material-symbols-outlined text-[13px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>
+            <span className="material-symbols-outlined text-[15px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>
               diamond
             </span>
-            <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D] sm:text-[12px]">
+            <span className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D] sm:text-[14px]">
               The Eclora Standard
             </span>
           </span>
@@ -24,12 +24,12 @@ export function LeadFormSection() {
             <span className="text-[#E3CC9D]">Aesthetic Care</span>
           </h2>
 
-          <p className="mt-4 font-body text-[14px] leading-[1.9] text-white/75 sm:text-[15px]">
+          <p className="mt-4 font-body text-[16px] leading-[1.9] text-white/75 sm:text-[16px]">
             At Eclora Aesthetics, we combine advanced treatments with thoughtful patient care to
             create an experience that feels as exceptional as the results.
           </p>
 
-          <p className="mt-3 font-body text-[14px] leading-[1.9] text-white/75 sm:text-[15px]">
+          <p className="mt-3 font-body text-[16px] leading-[1.9] text-white/75 sm:text-[16px]">
             From the moment you walk through our doors, you&apos;ll experience a clinic focused on
             comfort, professionalism, and personalised attention.
           </p>
@@ -43,7 +43,7 @@ export function LeadFormSection() {
             <h3 className="font-heading text-[20px] font-bold tracking-[-0.01em] leading-[1.2] text-[#1E2115] sm:text-[24px]">
               Begin Your Transformation <span className="text-[#4E5426]">Today</span>
             </h3>
-            <p className="mx-auto mt-2 max-w-[420px] font-body text-[13px] leading-[1.75] text-[#5F6352] sm:text-[14px]">
+            <p className="mx-auto mt-2 max-w-[420px] font-body text-[15px] leading-[1.75] text-[#5F6352] sm:text-[16px]">
               Share a few details and our team will reach out to recommend the right treatment
               plan for you.
             </p>

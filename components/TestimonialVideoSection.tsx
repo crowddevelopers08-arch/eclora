@@ -206,10 +206,10 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
         </span>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate font-body text-[14px] font-bold text-[#1E2115] sm:text-[15px]">
+          <p className="truncate font-body text-[16px] font-bold text-[#1E2115] sm:text-[16px]">
             {review.name}
           </p>
-          <p className="font-body text-[12px] text-[#8A8D80]">{review.when}</p>
+          <p className="font-body text-[14px] text-[#8A8D80]">{review.when}</p>
         </div>
 
         <GoogleMark size={16} />
@@ -217,12 +217,12 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
 
       <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
         <Stars size={15} />
-        <span className="font-label text-[11px] font-bold uppercase tracking-[0.12em] text-[#4E5426]">
+        <span className="font-label text-[13px] font-bold uppercase tracking-[0.12em] text-[#4E5426]">
           {review.treatment}
         </span>
       </div>
 
-      <p className="mt-3 font-body text-[13px] leading-[1.8] text-[#5F6352] sm:text-[14px]">
+      <p className="mt-3 font-body text-[15px] leading-[1.8] text-[#5F6352] sm:text-[16px]">
         {review.text}
       </p>
     </div>
@@ -320,7 +320,7 @@ export function TestimonialVideoSection() {
               {RATING}
             </span>
             <Stars size={16} />
-            <span className="font-label text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5F6352] sm:text-[13px]">
+            <span className="font-label text-[14px] font-semibold uppercase tracking-[0.12em] text-[#5F6352] sm:text-[15px]">
                Google Reviews
             </span>
           </div>
@@ -362,7 +362,7 @@ export function TestimonialVideoSection() {
         <AnimateOnScroll animation="fade-up" delay={200} className="mt-7 flex justify-center md:mt-8">
           <BlobButton
             href="#consultation"
-            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
+            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[16px] font-semibold shadow-md sm:text-[16px] md:px-10"
           >
             Book Your Consultation Today
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>

@@ -5,20 +5,9 @@ type BlobLinkProps = SharedProps & AnchorHTMLAttributes<HTMLAnchorElement> & { h
 type BlobNativeButtonProps = SharedProps & ButtonHTMLAttributes<HTMLButtonElement>;
 type BlobButtonProps = BlobLinkProps | BlobNativeButtonProps;
 
-function BlobLayers() {
-  return (
-    <span className="blob-btn__inner" aria-hidden="true">
-      <span className="blob-btn__blobs">
-        <span className="blob-btn__blob" /><span className="blob-btn__blob" />
-        <span className="blob-btn__blob" /><span className="blob-btn__blob" />
-      </span>
-    </span>
-  );
-}
-
 export function BlobButton(props: BlobButtonProps) {
   const { children, className = '', ...rest } = props;
-  const content = <><span className="blob-btn__label">{children}</span><BlobLayers /></>;
+  const content = <span className="blob-btn__label">{children}</span>;
 
   if ('href' in rest && rest.href) {
     return <a {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)} className={`blob-btn ${className}`}>{content}</a>;

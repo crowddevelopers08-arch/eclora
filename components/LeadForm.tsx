@@ -17,7 +17,7 @@ export const TREATMENT_CONCERNS = [
 ];
 
 const fieldClass =
-  'w-full rounded-xl border border-[#E3CC9D] bg-white px-4 py-3 font-label text-[14px] text-[#1E2115] outline-none transition placeholder:text-[#8A8D80] focus:border-[#4E5426] focus:bg-white';
+  'w-full rounded-xl border border-[#E3CC9D] bg-white px-4 py-3 font-label text-[16px] text-[#1E2115] outline-none transition placeholder:text-[#8A8D80] focus:border-[#4E5426] focus:bg-white';
 
 const labelClass =
   'mb-1.5 block font-label text-[10px] font-bold uppercase tracking-[0.16em] text-[#4E5426]';
@@ -128,7 +128,7 @@ export function LeadForm({
         <div>
           <label htmlFor={`${idPrefix}-phone`} className={labelClass}>Mobile Number</label>
           <div className="flex items-center gap-1.5 rounded-xl border border-[#E3CC9D] bg-white px-4 py-3 transition focus-within:border-[#4E5426] focus-within:bg-white">
-            <span className="shrink-0 font-label text-[14px] font-semibold text-[#8A8D80]">+91</span>
+            <span className="shrink-0 font-label text-[16px] font-semibold text-[#8A8D80]">+91</span>
             <span className="shrink-0 text-[#E3CC9D]">|</span>
             <input
               id={`${idPrefix}-phone`}
@@ -140,7 +140,7 @@ export function LeadForm({
               maxLength={10}
               autoComplete="tel"
               required
-              className="min-w-0 flex-1 bg-transparent font-label text-[14px] text-[#1E2115] outline-none placeholder:text-[#8A8D80]"
+              className="min-w-0 flex-1 bg-transparent font-label text-[16px] text-[#1E2115] outline-none placeholder:text-[#8A8D80]"
             />
           </div>
         </div>
@@ -168,18 +168,18 @@ export function LeadForm({
       </div>
 
       {error && (
-        <p className="text-center font-body text-[12px] font-semibold text-red-600">{error}</p>
+        <p className="text-center font-body text-[14px] font-semibold text-red-600">{error}</p>
       )}
 
       <BlobButton
         type="submit"
         disabled={loading}
-        className="self-center rounded-full px-8 py-3.5 font-label text-[14px] font-bold uppercase tracking-[0.1em] sm:px-10"
+        className="self-center rounded-full px-8 py-3.5 font-label text-[16px] font-bold uppercase tracking-[0.1em] sm:px-10"
       >
         {loading ? 'Submitting…' : 'Book Your Consultation Today'}
       </BlobButton>
 
-      <p className="text-center font-body text-[11px] text-[#8A8D80] sm:text-[12px]">
+      <p className="text-center font-body text-[13px] text-[#8A8D80] sm:text-[14px]">
         No obligation · Your details stay private
       </p>
     </form>

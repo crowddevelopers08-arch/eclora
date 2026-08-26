@@ -27,9 +27,9 @@ export default function PrivacyPolicyPage() {
           </Link>
           <BlobButton
             href={`tel:${SITE.phone}`}
-            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 font-body text-[12px] font-semibold sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[14px]"
+            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 font-body text-[14px] font-semibold sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[16px]"
           >
-            <span className="material-symbols-outlined text-[15px] sm:text-[16px]" style={{ fontVariationSettings: '"FILL" 1' }}>call</span>
+            <span className="material-symbols-outlined text-[16px] sm:text-[16px]" style={{ fontVariationSettings: '"FILL" 1' }}>call</span>
             Call Now
           </BlobButton>
         </div>
@@ -38,13 +38,13 @@ export default function PrivacyPolicyPage() {
       {/* Hero band */}
       <div className="bg-[#4E5426] px-4 py-8 sm:px-6 sm:py-10 md:px-[60px] md:py-14">
         <div className="mx-auto max-w-[800px]">
-          <p className="mb-2 font-label text-[11px] font-semibold uppercase tracking-[0.2em] text-[#E3CC9D] sm:text-[12px]">
+          <p className="mb-2 font-label text-[13px] font-semibold uppercase tracking-[0.2em] text-[#E3CC9D] sm:text-[14px]">
             Legal
           </p>
           <h1 className="font-heading text-[28px] font-bold tracking-[-0.01em] leading-[1.2] text-white sm:text-[34px] md:text-[44px]">
             Privacy Policy
           </h1>
-          <p className="mt-2 font-body text-[13px] leading-[1.6] text-white/55 sm:text-[14px]">
+          <p className="mt-2 font-body text-[15px] leading-[1.6] text-white/55 sm:text-[16px]">
             Last updated: 24 August 2026
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Intro */}
           <div className="mb-8 rounded-xl border border-[#E3CC9D] bg-white p-4 shadow-sm sm:p-6 md:mb-10 md:p-8">
-            <p className="font-body text-[14px] leading-[1.85] text-[#5F6352] sm:text-[15px] md:text-[16px]">
+            <p className="font-body text-[16px] leading-[1.85] text-[#5F6352] sm:text-[16px] md:text-[16px]">
               At <span className="font-semibold text-[#1E2115]">{SITE.name}</span>, your privacy is
               of paramount importance to us. This Privacy Policy explains how we collect, use,
               disclose, and safeguard your information when you visit our website or use our
@@ -193,13 +193,13 @@ export default function PrivacyPolicyPage() {
             <PolicySection title="13. Contact Us">
               <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please reach out to us:</p>
               <div className="mt-3 overflow-hidden rounded-xl bg-white p-4 sm:p-5">
-                <p className="mb-1 font-body text-[14px] font-bold text-[#4E5426] sm:text-[15px]">{SITE.name}</p>
-                <p className="font-body text-[13px] text-[#5F6352] sm:text-[14px]">{SITE.address}</p>
+                <p className="mb-1 font-body text-[16px] font-bold text-[#4E5426] sm:text-[16px]">{SITE.name}</p>
+                <p className="font-body text-[15px] text-[#5F6352] sm:text-[16px]">{SITE.address}</p>
                 <div className="mt-2 flex flex-col gap-1.5">
-                  <a href={`tel:${SITE.phone}`} className="font-body text-[13px] font-semibold text-[#4E5426] hover:underline sm:text-[14px]">
+                  <a href={`tel:${SITE.phone}`} className="font-body text-[15px] font-semibold text-[#4E5426] hover:underline sm:text-[16px]">
                     {SITE.phoneDisplay}
                   </a>
-                  <a href={`mailto:${SITE.email}`} className="break-all font-body text-[13px] font-semibold text-[#4E5426] hover:underline sm:text-[14px]">
+                  <a href={`mailto:${SITE.email}`} className="break-all font-body text-[15px] font-semibold text-[#4E5426] hover:underline sm:text-[16px]">
                     {SITE.email}
                   </a>
                 </div>
@@ -212,7 +212,7 @@ export default function PrivacyPolicyPage() {
           <div className="mt-10 border-t border-[#E3CC9D] pt-7 sm:mt-12 md:mt-14">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 font-body text-[13px] font-semibold text-[#4E5426] hover:underline sm:text-[14px]"
+              className="inline-flex items-center gap-2 font-body text-[15px] font-semibold text-[#4E5426] hover:underline sm:text-[16px]"
             >
               <span className="material-symbols-outlined text-[17px]">arrow_back</span>
               Back to Home
@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
 
       {/* Footer */}
       <footer className="border-t border-[#E3CC9D] bg-white px-4 py-5 text-center sm:px-6 md:px-[60px]">
-        <p className="font-body text-[12px] text-[#8A8D80] sm:text-[13px]">
+        <p className="font-body text-[14px] text-[#8A8D80] sm:text-[15px]">
           © {new Date().getFullYear()} {SITE.name}. All rights reserved.
         </p>
       </footer>
@@ -236,10 +236,10 @@ export default function PrivacyPolicyPage() {
 function PolicySection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="w-full overflow-hidden rounded-xl border border-[#E3CC9D] bg-white p-4 shadow-sm sm:p-5 md:p-6">
-      <h2 className="mb-3 font-heading text-[15px] font-bold leading-[1.3] text-[#4E5426] sm:text-[17px] md:mb-4 md:text-[19px]">
+      <h2 className="mb-3 font-heading text-[16px] font-bold leading-[1.3] text-[#4E5426] sm:text-[17px] md:mb-4 md:text-[19px]">
         {title}
       </h2>
-      <div className="space-y-2.5 break-words font-body text-[13px] leading-[1.85] text-[#5F6352] sm:text-[14px] md:text-[15px] [&_a]:break-all [&_a]:font-semibold [&_a]:text-[#4E5426] [&_a]:hover:underline [&_strong]:font-semibold [&_strong]:text-[#1E2115] [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-4 [&_ul]:marker:text-[#4E5426]/70 sm:[&_ul]:space-y-2 sm:[&_ul]:pl-5">
+      <div className="space-y-2.5 break-words font-body text-[15px] leading-[1.85] text-[#5F6352] sm:text-[16px] md:text-[16px] [&_a]:break-all [&_a]:font-semibold [&_a]:text-[#4E5426] [&_a]:hover:underline [&_strong]:font-semibold [&_strong]:text-[#1E2115] [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-4 [&_ul]:marker:text-[#4E5426]/70 sm:[&_ul]:space-y-2 sm:[&_ul]:pl-5">
         {children}
       </div>
     </div>

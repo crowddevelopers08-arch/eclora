@@ -39,7 +39,7 @@ export function Footer() {
             </span>
           )}
 
-          <p className="font-body max-w-[280px] text-[14px] leading-[1.8] text-[#E3CC9D]/70">
+          <p className="font-body max-w-[280px] text-[16px] leading-[1.8] text-[#E3CC9D]/70">
             Advanced skin, hair and body treatments delivered through personalised plans, expert
             guidance, and a premium patient experience.
           </p>
@@ -68,7 +68,7 @@ export function Footer() {
 
         {/* Treatments */}
         <div className="space-y-5">
-          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
+          <h4 className="font-label text-[13px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Our Treatments
           </h4>
           <ul className="space-y-3">
@@ -76,7 +76,7 @@ export function Footer() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="font-body flex items-center gap-2 text-[14px] leading-[1.5] text-[#E3CC9D]/70 transition-colors hover:text-[#E3CC9D]"
+                  className="font-body flex items-center gap-2 text-[16px] leading-[1.5] text-[#E3CC9D]/70 transition-colors hover:text-[#E3CC9D]"
                 >
                   <span className="h-1 w-1 flex-shrink-0 rounded-full bg-[#E3CC9D]/50" />
                   {item.label}
@@ -88,7 +88,7 @@ export function Footer() {
 
         {/* Quick links */}
         <div className="space-y-5">
-          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
+          <h4 className="font-label text-[13px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Quick Links
           </h4>
           <ul className="space-y-3">
@@ -96,7 +96,7 @@ export function Footer() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="font-body flex items-center gap-2 text-[14px] leading-[1.5] text-[#E3CC9D]/70 transition-colors hover:text-[#E3CC9D]"
+                  className="font-body flex items-center gap-2 text-[16px] leading-[1.5] text-[#E3CC9D]/70 transition-colors hover:text-[#E3CC9D]"
                 >
                   <span className="h-1 w-1 flex-shrink-0 rounded-full bg-[#E3CC9D]/50" />
                   {item.label}
@@ -108,21 +108,21 @@ export function Footer() {
 
         {/* Contact */}
         <div className="space-y-5">
-          <h4 className="font-label text-[11px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
+          <h4 className="font-label text-[13px] font-semibold uppercase tracking-[0.22em] text-[#E3CC9D]">
             Contact Us
           </h4>
 
           <div className="space-y-4">
             <a href={`tel:${SITE.phone}`} className="group flex items-start gap-3">
               <span className="material-symbols-outlined mt-0.5 text-[19px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>call</span>
-              <span className="font-body text-[14px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
+              <span className="font-body text-[16px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
                 {SITE.phoneDisplay}
               </span>
             </a>
 
             <a href={`mailto:${SITE.email}`} className="group flex items-start gap-3">
               <span className="material-symbols-outlined mt-0.5 text-[19px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>mail</span>
-              <span className="font-body break-all text-[14px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
+              <span className="font-body break-all text-[16px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
                 {SITE.email}
               </span>
             </a>
@@ -134,14 +134,14 @@ export function Footer() {
               className="group flex items-start gap-3"
             >
               <span className="material-symbols-outlined mt-0.5 text-[19px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>location_on</span>
-              <span className="font-body text-[14px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
+              <span className="font-body text-[16px] leading-[1.6] text-[#E3CC9D]/70 transition-colors group-hover:text-[#E3CC9D]">
                 {SITE.address}
               </span>
             </a>
 
             <div className="flex items-start gap-3">
               <span className="material-symbols-outlined mt-0.5 text-[19px] text-[#E3CC9D]" style={{ fontVariationSettings: '"FILL" 1' }}>schedule</span>
-              <span className="font-body text-[14px] leading-[1.6] text-[#E3CC9D]/70">
+              <span className="font-body text-[16px] leading-[1.6] text-[#E3CC9D]/70">
                 {SITE.hours}
               </span>
             </div>
@@ -149,7 +149,7 @@ export function Footer() {
 
           <BlobButton
             href="#consultation"
-            className="[--blob-button-color:#E3CC9D] font-body mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-semibold shadow-sm"
+            className="[--blob-button-color:#E3CC9D] font-body mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[16px] font-semibold shadow-sm"
           >
             Book Your Consultation
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
@@ -159,11 +159,11 @@ export function Footer() {
 
       <div className="border-t border-[#E3CC9D]/15">
         <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-3 px-4 py-4 sm:flex-row sm:px-6 md:px-[60px]">
-          <p className="font-body text-[13px] text-[#E3CC9D]/50">
+          <p className="font-body text-[15px] text-[#E3CC9D]/50">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
           <a
-            className="font-label text-[12px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 transition-colors hover:text-[#E3CC9D]"
+            className="font-label text-[14px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 transition-colors hover:text-[#E3CC9D]"
             href="/privacy-policy"
           >
             Privacy Policy

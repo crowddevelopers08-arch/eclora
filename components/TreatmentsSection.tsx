@@ -37,10 +37,10 @@ export function TreatmentsSection() {
 
         <AnimateOnScroll animation="fade-down" className="mb-6 text-center md:mb-8">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D] bg-white px-3 py-1">
-            <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
+            <span className="material-symbols-outlined text-[15px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
               spa
             </span>
-            <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+            <span className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[14px]">
               Treatments
             </span>
           </span>
@@ -49,7 +49,7 @@ export function TreatmentsSection() {
             Our Most <span className="text-[#4E5426]">Popular Treatments</span>
           </h2>
 
-          <p className="mx-auto mt-3 max-w-[620px] font-body text-[14px] leading-[1.8] text-[#5F6352] sm:text-[15px]">
+          <p className="mx-auto mt-3 max-w-[620px] font-body text-[16px] leading-[1.8] text-[#5F6352] sm:text-[16px]">
             Customised protocols for skin, hair and body — with transparent pricing and a plan
             built around your concern.
           </p>
@@ -70,7 +70,7 @@ export function TreatmentsSection() {
         <AnimateOnScroll animation="fade-up" delay={200} className="mt-7 flex justify-center md:mt-8">
           <BlobButton
             href="#consultation"
-            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
+            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[16px] font-semibold shadow-md sm:text-[16px] md:px-10"
           >
             Book Your Consultation Today
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>

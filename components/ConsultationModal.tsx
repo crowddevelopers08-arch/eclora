@@ -101,7 +101,7 @@ export function ConsultationModal() {
           >
             Begin Your Transformation <span className="text-[#4E5426]">Today</span>
           </h2>
-          <p className="mt-2 font-body text-[13px] leading-[1.75] text-[#5F6352] sm:text-[14px]">
+          <p className="mt-2 font-body text-[15px] leading-[1.75] text-[#5F6352] sm:text-[16px]">
             Share a few details and our team will reach out to recommend the right treatment plan
             for you.
           </p>

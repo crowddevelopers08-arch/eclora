@@ -37,7 +37,7 @@ export function Header() {
             <a
               key={link.label}
               href={link.href}
-              className="font-body relative whitespace-nowrap py-1 text-[13px] font-semibold tracking-[0.04em] text-[#5F6352] transition-colors duration-200 hover:text-[#4E5426] xl:text-[14px]"
+              className="font-body relative whitespace-nowrap py-1 text-[15px] font-semibold tracking-[0.04em] text-[#5F6352] transition-colors duration-200 hover:text-[#4E5426] xl:text-[16px]"
             >
               {link.label}
             </a>
@@ -48,7 +48,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <BlobButton
             href="#consultation"
-            className="font-body hidden rounded-full px-5 py-2.5 text-[14px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[14px] xl:px-7 xl:text-[15px]"
+            className="font-body hidden rounded-full px-5 py-2.5 text-[16px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[16px] xl:px-7 xl:text-[16px]"
           >
             Book Your Consultation
           </BlobButton>
@@ -73,7 +73,7 @@ export function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-body block rounded-lg px-3 py-2.5 text-[15px] font-semibold text-[#1E2115] transition-colors hover:bg-[#E3CC9D]/20 hover:text-[#4E5426]"
+                className="font-body block rounded-lg px-3 py-2.5 text-[16px] font-semibold text-[#1E2115] transition-colors hover:bg-[#E3CC9D]/20 hover:text-[#4E5426]"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
@@ -81,7 +81,7 @@ export function Header() {
             ))}
             <BlobButton
               href="#consultation"
-              className="font-body mt-3 inline-flex justify-center rounded-full px-5 py-2.5 text-[15px] font-semibold"
+              className="font-body mt-3 inline-flex justify-center rounded-full px-5 py-2.5 text-[16px] font-semibold"
               onClick={() => setMenuOpen(false)}
             >
               Book Your Consultation

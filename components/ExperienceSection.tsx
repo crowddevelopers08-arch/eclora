@@ -7,10 +7,10 @@ export function ExperienceSection() {
 
       <AnimateOnScroll animation="fade-up" className="mx-auto max-w-[860px] text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D] bg-white px-3 py-1">
-          <span className="material-symbols-outlined text-[13px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
+          <span className="material-symbols-outlined text-[15px] text-[#4E5426]" style={{ fontVariationSettings: '"FILL" 1' }}>
             diamond
           </span>
-          <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+          <span className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[14px]">
             The Eclora Standard
           </span>
         </span>
@@ -20,12 +20,12 @@ export function ExperienceSection() {
           <span className="text-[#4E5426]">Aesthetic Care</span>
         </h2>
 
-        <p className="mx-auto mt-4 max-w-[680px] font-body text-[14px] leading-[1.9] text-[#5F6352] sm:text-[15px] md:text-[16px]">
+        <p className="mx-auto mt-4 max-w-[680px] font-body text-[16px] leading-[1.9] text-[#5F6352] sm:text-[16px] md:text-[16px]">
           At Eclora Aesthetics, we combine advanced treatments with thoughtful patient care to
           create an experience that feels as exceptional as the results.
         </p>
 
-        <p className="mx-auto mt-3 max-w-[680px] font-body text-[14px] leading-[1.9] text-[#5F6352] sm:text-[15px] md:text-[16px]">
+        <p className="mx-auto mt-3 max-w-[680px] font-body text-[16px] leading-[1.9] text-[#5F6352] sm:text-[16px] md:text-[16px]">
           From the moment you walk through our doors, you&apos;ll experience a clinic focused on
           comfort, professionalism, and personalised attention.
         </p>

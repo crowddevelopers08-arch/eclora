@@ -25,12 +25,12 @@ export function WhoCanBenefitSection() {
           >
             <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E3CC9D] bg-white px-3 py-1">
               <span
-                className="material-symbols-outlined text-[13px] text-[#4E5426]"
+                className="material-symbols-outlined text-[15px] text-[#4E5426]"
                 style={{ fontVariationSettings: '"FILL" 1' }}
               >
                 help
               </span>
-              <span className="font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[12px]">
+              <span className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4E5426] sm:text-[14px]">
                 Is This For You?
               </span>
             </span>
@@ -40,14 +40,14 @@ export function WhoCanBenefitSection() {
               <span className="text-[#4E5426]">Our Treatments?</span>
             </h2>
 
-            <p className="mt-3 font-body text-[14px] leading-[1.85] text-[#5F6352]">
+            <p className="mt-3 font-body text-[16px] leading-[1.85] text-[#5F6352]">
               Our treatments are ideal for individuals looking to address the concerns listed here.
               Book a consultation and our team will confirm the right plan for you.
             </p>
 
             <BlobButton
               href="#consultation"
-              className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 font-body text-[14px] font-semibold shadow-md sm:text-[15px]"
+              className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 font-body text-[16px] font-semibold shadow-md sm:text-[16px]"
             >
               Book Your Consultation Today
               <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -64,7 +64,7 @@ export function WhoCanBenefitSection() {
                       i < CONCERNS.length - 1 ? 'border-b border-[#E3CC9D]' : ''
                     }`}
                   >
-                    <span className="w-7 shrink-0 font-body text-[12px] font-black tracking-[0.16em] text-[#4E5426]/70">
+                    <span className="w-7 shrink-0 font-body text-[14px] font-black tracking-[0.16em] text-[#4E5426]/70">
                       {item.num}
                     </span>
 
@@ -77,7 +77,7 @@ export function WhoCanBenefitSection() {
                       check_circle
                     </span>
 
-                    <p className="flex-1 font-body text-[14px] font-medium leading-[1.6] text-[#1E2115] sm:text-[15px]">
+                    <p className="flex-1 font-body text-[16px] font-semibold leading-[1.6] text-[#1E2115] sm:text-[16px]">
                       {item.text}
                     </p>
                   </div>
@@ -89,16 +89,16 @@ export function WhoCanBenefitSection() {
             <AnimateOnScroll animation="fade-up" delay={420} className="mt-6 rounded-2xl bg-[#4E5426] p-5 md:p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="font-body text-[15px] font-bold text-white sm:text-[16px]">
+                  <p className="font-body text-[16px] font-bold text-white sm:text-[16px]">
                     Not sure which treatment is right for you?
                   </p>
-                  <p className="font-body text-[13px] text-[#E3CC9D]/75 sm:text-[14px]">
+                  <p className="font-body text-[15px] text-[#E3CC9D]/75 sm:text-[16px]">
                     Our experts will assess your concern and build a customised plan.
                   </p>
                 </div>
                 <BlobButton
                   href="#consultation"
-                  className="[--blob-button-color:#E3CC9D] inline-flex flex-shrink-0 items-center gap-2 self-start rounded-full px-5 py-2.5 font-body text-[13px] font-bold sm:self-auto sm:text-[14px]"
+                  className="[--blob-button-color:#E3CC9D] inline-flex flex-shrink-0 items-center gap-2 self-start rounded-full px-5 py-2.5 font-body text-[15px] font-bold sm:self-auto sm:text-[16px]"
                 >
                   Get Your Assessment
                   <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
