@@ -186,9 +186,22 @@ body {
 
 /* Scroll-based marquee rows retain automatic movement while allowing drag,
    swipe, mouse-wheel, and arrow-button navigation. */
-.manual-carousel { position: relative; width: 100%; }
-.manual-carousel__viewport {
+.manual-carousel,
+.carousel-gutter {
+  --carousel-gutter: 16px;
+}
+
+.manual-carousel {
+  position: relative;
+  width: 100%;
+}
+.manual-carousel__viewport,
+.carousel-gutter {
   overflow-x: auto;
+  padding-inline: var(--carousel-gutter);
+  scroll-padding-inline: var(--carousel-gutter);
+}
+.manual-carousel__viewport {
   scrollbar-width: none;
   cursor: grab;
   touch-action: pan-x;
@@ -407,6 +420,20 @@ body {
 .blob-btn__label { position: relative; z-index: 1; display: inline-flex; align-items: inherit; justify-content: inherit; gap: inherit; line-height: 1.2; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.16); }
 .blob-btn__label > * { color: inherit !important; }
 
+@media (min-width: 640px) {
+  .manual-carousel,
+  .carousel-gutter {
+    --carousel-gutter: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .manual-carousel,
+  .carousel-gutter {
+    --carousel-gutter: max(60px, calc((100vw - 1280px) / 2 + 60px));
+  }
+}
+
 @media (min-width: 375px) {
   .blob-btn,
   .btn-primary,
@@ -443,7 +470,6 @@ body {
   .btn-icon {
     padding: 12px 24px;
     font-size: 16px;
-    min-width: 160px;
   }
 }
 

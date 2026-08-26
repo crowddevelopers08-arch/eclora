@@ -104,7 +104,7 @@ export function CardCarousel({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="carousel-gutter flex w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {slides.map((child, i) => (

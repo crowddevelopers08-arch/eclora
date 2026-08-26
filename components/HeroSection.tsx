@@ -56,7 +56,7 @@ export function HeroSection() {
               guidance, and a luxury patient experience designed around you.
             </p>
 
-            <div className="hero-anim-ctas mt-8 flex w-full flex-col items-stretch sm:flex-row sm:items-center sm:justify-center lg:mt-6 lg:justify-start xl:mt-8">
+            <div className="hero-anim-ctas mt-8 flex w-full flex-col items-center sm:flex-row sm:items-center sm:justify-center lg:mt-6 lg:items-start lg:justify-start xl:mt-8">
               <BlobButton
                 href="#consultation"
                 className="font-body inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[16px] font-bold shadow-lg sm:text-[16px] md:px-10 lg:px-8 lg:py-3 lg:text-[16px] xl:px-9 xl:py-3.5 xl:text-[16px] 2xl:px-10 2xl:py-4 2xl:text-[16px]"

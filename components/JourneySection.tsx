@@ -95,7 +95,7 @@ export function JourneySection() {
             href="#consultation"
             className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[16px] font-semibold shadow-md sm:text-[16px] md:px-10"
           >
-            Start With A Consultation
+            Book Your Consultation
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
           </BlobButton>
         </AnimateOnScroll>

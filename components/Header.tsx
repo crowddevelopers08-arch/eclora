@@ -50,7 +50,7 @@ export function Header() {
             href="#consultation"
             className="font-body hidden rounded-full px-5 py-2.5 text-[16px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[16px] xl:px-7 xl:text-[16px]"
           >
-            Book Your Consultation
+            Book
           </BlobButton>
 
           <BlobButton
