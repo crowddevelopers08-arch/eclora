@@ -1,4 +1,5 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
 
 export function FinalCtaSection() {
   return (
@@ -21,13 +22,13 @@ export function FinalCtaSection() {
               </p>
 
               <div className="mt-7 flex justify-center">
-                <a
+                <BlobButton
                   href="#consultation"
-                  className="btn-primary font-body inline-flex items-center justify-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-bold text-white shadow-lg sm:text-[15px] md:px-10"
+                  className="font-body inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-bold shadow-lg sm:text-[15px] md:px-10"
                 >
                   Book Your Consultation Today
                   <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-                </a>
+                </BlobButton>
               </div>
 
               <p className="mx-auto mt-6 max-w-[600px] font-body text-[14px] leading-[1.9] text-[#4E5426] sm:text-[15px]">

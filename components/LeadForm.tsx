@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { BlobButton } from '@/components/BlobButton';
 
 export const TREATMENT_CONCERNS = [
   'Pigmentation Treatments',
@@ -170,13 +171,13 @@ export function LeadForm({
         <p className="text-center font-body text-[12px] font-semibold text-red-600">{error}</p>
       )}
 
-      <button
+      <BlobButton
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-[#4E5426] py-3.5 font-label text-[14px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#4E5426]/90 disabled:opacity-70"
+        className="self-center rounded-full px-8 py-3.5 font-label text-[14px] font-bold uppercase tracking-[0.1em] sm:px-10"
       >
         {loading ? 'Submitting…' : 'Book Your Consultation Today'}
-      </button>
+      </BlobButton>
 
       <p className="text-center font-body text-[11px] text-[#8A8D80] sm:text-[12px]">
         No obligation · Your details stay private

@@ -1,4 +1,5 @@
 import { SITE } from '@/lib/site';
+import { BlobButton } from '@/components/BlobButton';
 
 export function HeroSection() {
   return (
@@ -11,7 +12,7 @@ export function HeroSection() {
         {/* Banner — desktop only, always fully visible, never cropped */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/ecloraban.png"
+          src="/newban.png"
           alt=""
           aria-hidden
           className="hidden w-full lg:block"
@@ -20,7 +21,7 @@ export function HeroSection() {
         {/* Legibility scrim behind the right-hand copy */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] bg-gradient-to-l from-white via-white/85 to-transparent lg:block"
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[60%] bg-gradient-to-l from-white via-white/85 to-transparent lg:block"
         />
 
         {/* Copy — stacked below the banner on mobile, overlaid on its right on desktop */}
@@ -44,7 +45,7 @@ export function HeroSection() {
             {/* Mobile banner — sits between the headline and the subheadline */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/ecloramobban.png"
+              src="/newmobban.png"
               alt=""
               aria-hidden
               className="hero-anim-video mt-6 block w-full rounded-2xl sm:mt-7 lg:hidden"
@@ -56,13 +57,13 @@ export function HeroSection() {
             </p>
 
             <div className="hero-anim-ctas mt-8 flex w-full flex-col items-stretch sm:flex-row sm:items-center sm:justify-center lg:mt-6 lg:justify-start xl:mt-8">
-              <a
+              <BlobButton
                 href="#consultation"
-                className="btn-primary font-body inline-flex items-center justify-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-bold text-white shadow-lg sm:text-[15px] md:px-10 lg:px-8 lg:py-3 lg:text-[14px] xl:px-9 xl:py-3.5 xl:text-[15px] 2xl:px-10 2xl:py-4 2xl:text-[16px]"
+                className="font-body inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-bold shadow-lg sm:text-[15px] md:px-10 lg:px-8 lg:py-3 lg:text-[14px] xl:px-9 xl:py-3.5 xl:text-[15px] 2xl:px-10 2xl:py-4 2xl:text-[16px]"
               >
                 Book Your Consultation Today
                 <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-              </a>
+              </BlobButton>
             </div>
 
           </div>

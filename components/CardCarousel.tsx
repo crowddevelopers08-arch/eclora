@@ -1,18 +1,17 @@
 'use client';
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { BlobButton } from '@/components/BlobButton';
 
 interface Props {
   children: React.ReactNode[];
   dotColor?: string;
   interval?: number;
-  btnTop?: string;
 }
 
 export function CardCarousel({
   children,
   dotColor = '#E3CC9D',
   interval = 3000,
-  btnTop = '120px',
 }: Props) {
   const count = children.length;
   const [active, setActive] = useState(0);
@@ -115,25 +114,14 @@ export function CardCarousel({
         ))}
       </div>
 
-      {/* Prev button */}
-      <button
-        onClick={handlePrev}
-        aria-label="Previous"
-        className="absolute left-2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/50 active:scale-90"
-        style={{ top: btnTop }}
-      >
-        <span className="material-symbols-outlined text-[22px]">chevron_left</span>
-      </button>
-
-      {/* Next button */}
-      <button
-        onClick={handleNext}
-        aria-label="Next"
-        className="absolute right-2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/50 active:scale-90"
-        style={{ top: btnTop }}
-      >
-        <span className="material-symbols-outlined text-[22px]">chevron_right</span>
-      </button>
+      <div className="manual-carousel__controls">
+        <BlobButton onClick={handlePrev} aria-label="Previous" className="manual-carousel__arrow">
+          <span className="material-symbols-outlined text-[22px]">chevron_left</span>
+        </BlobButton>
+        <BlobButton onClick={handleNext} aria-label="Next" className="manual-carousel__arrow">
+          <span className="material-symbols-outlined text-[22px]">chevron_right</span>
+        </BlobButton>
+      </div>
 
       {/* Dot indicators */}
       <div className="mt-5 flex justify-center gap-2">

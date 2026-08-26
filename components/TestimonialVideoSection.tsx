@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
+import { ManualCarousel } from '@/components/ManualCarousel';
 
 /**
  * Patient testimonials.
@@ -345,26 +347,26 @@ export function TestimonialVideoSection() {
           The list is rendered twice so the loop is seamless at translateX(-50%);
           spacing is mr-5 on the card rather than a flex gap so the two halves
           add up to exactly 50%. py-2 keeps the borders off the clip edge. */}
-      <AnimateOnScroll animation="fade-up" className="marquee-viewport w-full overflow-hidden py-2">
+      <AnimateOnScroll animation="fade-up" className="w-full py-2">
         {/* 18 reviews × 2 copies ≈ 7,200px per loop — 120s keeps the scroll at
             roughly the same 60px/s as the shorter rows on the page. */}
-        <div className="marquee-track" style={{ '--marquee-duration': '120s' } as React.CSSProperties}>
-          {[...REVIEWS, ...REVIEWS].map((review, i) => (
-            <ReviewCard key={`${review.id}-${i}`} review={review} />
+        <ManualCarousel duration={120}>
+          {REVIEWS.map((review) => (
+            <ReviewCard key={review.id} review={review} />
           ))}
-        </div>
+        </ManualCarousel>
       </AnimateOnScroll>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-[60px]">
         {/* CTA */}
         <AnimateOnScroll animation="fade-up" delay={200} className="mt-7 flex justify-center md:mt-8">
-          <a
+          <BlobButton
             href="#consultation"
-            className="font-body inline-flex items-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px] md:px-10"
+            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
           >
             Book Your Consultation Today
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-          </a>
+          </BlobButton>
         </AnimateOnScroll>
       </div>
 

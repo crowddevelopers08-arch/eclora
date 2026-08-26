@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SITE } from '@/lib/site';
+import { BlobButton } from '@/components/BlobButton';
 
 export const metadata = {
   title: 'Privacy Policy | Eclora Aesthetics',
@@ -24,13 +25,13 @@ export default function PrivacyPolicyPage() {
               </span>
             )}
           </Link>
-          <a
+          <BlobButton
             href={`tel:${SITE.phone}`}
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#4E5426] px-3.5 py-2 font-body text-[12px] font-semibold text-white transition-colors hover:bg-[#4E5426]/90 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[14px]"
+            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 font-body text-[12px] font-semibold sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[14px]"
           >
             <span className="material-symbols-outlined text-[15px] sm:text-[16px]" style={{ fontVariationSettings: '"FILL" 1' }}>call</span>
             Call Now
-          </a>
+          </BlobButton>
         </div>
       </header>
 

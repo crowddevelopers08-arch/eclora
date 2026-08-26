@@ -1,4 +1,6 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
+import { ManualCarousel } from '@/components/ManualCarousel';
 
 /**
  * Results gallery — one auto-scrolling row of cards.
@@ -75,25 +77,24 @@ export function BeforeAfterSection() {
 
       {/* Auto-scrolling single row — pauses on hover */}
       {/* py-2 keeps the card borders and shadows off the overflow-hidden clip edge */}
-      <AnimateOnScroll animation="fade-up" className="marquee-viewport w-full overflow-hidden py-2">
-        <div className="marquee-track" style={{ '--marquee-duration': '38s' } as React.CSSProperties}>
-          {/* The list is rendered twice so the loop is seamless at translateX(-50%) */}
-          {[...RESULTS, ...RESULTS].map((item, i) => (
-            <ResultCard key={`${item.id}-${i}`} item={item} />
+      <AnimateOnScroll animation="fade-up" className="w-full py-2">
+        <ManualCarousel duration={38}>
+          {RESULTS.map((item) => (
+            <ResultCard key={item.id} item={item} />
           ))}
-        </div>
+        </ManualCarousel>
       </AnimateOnScroll>
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 md:px-[60px]">
         {/* CTA */}
         <AnimateOnScroll animation="fade-up" delay={200} className="mt-7 flex justify-center md:mt-8">
-          <a
+          <BlobButton
             href="#consultation"
-            className="font-body inline-flex items-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px] md:px-10"
+            className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
           >
             Book Your Consultation Today
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-          </a>
+          </BlobButton>
         </AnimateOnScroll>
       </div>
 

@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
 
 const FAQ_ITEMS = [
   {
@@ -83,13 +84,13 @@ export function FAQSection() {
         </AnimateOnScroll>
 
         <AnimateOnScroll animation="fade-up" delay={280} className="mt-7 flex justify-center md:mt-8">
-          <a
+          <BlobButton
             href="#consultation"
-            className="font-body flex items-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px] md:px-10"
+            className="font-body flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
           >
             Book Your Consultation Today
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-          </a>
+          </BlobButton>
         </AnimateOnScroll>
 
       </div>

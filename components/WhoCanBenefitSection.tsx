@@ -1,4 +1,5 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
 
 const CONCERNS = [
   { num: '01', text: 'Pigmentation and uneven skin tone' },
@@ -44,13 +45,13 @@ export function WhoCanBenefitSection() {
               Book a consultation and our team will confirm the right plan for you.
             </p>
 
-            <a
+            <BlobButton
               href="#consultation"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#4E5426] px-6 py-3 font-body text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px]"
+              className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 font-body text-[14px] font-semibold shadow-md sm:text-[15px]"
             >
               Book Your Consultation Today
               <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </a>
+            </BlobButton>
           </AnimateOnScroll>
 
           {/* RIGHT — concerns list */}
@@ -95,13 +96,13 @@ export function WhoCanBenefitSection() {
                     Our experts will assess your concern and build a customised plan.
                   </p>
                 </div>
-                <a
+                <BlobButton
                   href="#consultation"
-                  className="inline-flex flex-shrink-0 items-center gap-2 self-start rounded-full bg-white px-5 py-2.5 font-body text-[13px] font-bold text-[#4E5426] transition-colors hover:bg-[#E3CC9D] sm:self-auto sm:text-[14px]"
+                  className="[--blob-button-color:#E3CC9D] inline-flex flex-shrink-0 items-center gap-2 self-start rounded-full px-5 py-2.5 font-body text-[13px] font-bold sm:self-auto sm:text-[14px]"
                 >
                   Get Your Assessment
                   <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
+                </BlobButton>
               </div>
             </AnimateOnScroll>
           </div>

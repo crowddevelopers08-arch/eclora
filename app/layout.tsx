@@ -97,6 +97,15 @@ export default function RootLayout({
       <body
         className={`${jost.variable} font-body antialiased selection:bg-[#4E5426] selection:text-[#E3CC9D]`}
       >
+        <svg className="blob-filter" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo" />
+              <feBlend in2="goo" in="SourceGraphic" />
+            </filter>
+          </defs>
+        </svg>
         {children}
         <ConsultationModal />
       </body>

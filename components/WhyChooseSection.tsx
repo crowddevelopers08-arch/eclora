@@ -1,6 +1,8 @@
 import type { IconType } from 'react-icons';
 import { LuGem, LuMicroscope, LuSlidersHorizontal, LuSparkles, LuStethoscope } from 'react-icons/lu';
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
+import { ManualCarousel } from '@/components/ManualCarousel';
 
 const REASONS: { Icon: IconType; title: string; desc: string }[] = [
   {
@@ -86,17 +88,17 @@ export function WhyChooseSection() {
           The list is rendered twice so the loop is seamless at translateX(-50%);
           spacing is mr-4 rather than a flex gap so the two halves add up to
           exactly 50%. */}
-      <AnimateOnScroll animation="fade-up" className="marquee-viewport w-full overflow-hidden py-2 lg:hidden">
-        <div className="cc-row marquee-track" style={{ '--marquee-duration': '34s' } as React.CSSProperties}>
-          {[...REASONS, ...REASONS].map((reason, i) => (
+      <AnimateOnScroll animation="fade-up" className="w-full py-2 lg:hidden">
+        <ManualCarousel duration={34} className="cc-row">
+          {REASONS.map((reason, i) => (
             <ReasonCard
-              key={`${reason.title}-${i}`}
+              key={reason.title}
               reason={reason}
-              index={i % REASONS.length}
+              index={i}
               className="mr-4 w-[290px] flex-shrink-0 sm:w-[330px]"
             />
           ))}
-        </div>
+        </ManualCarousel>
       </AnimateOnScroll>
 
       {/* Desktop — 5-up grid. Cards are grid items with no wrapper, so every
@@ -110,13 +112,13 @@ export function WhyChooseSection() {
       </AnimateOnScroll>
 
       <AnimateOnScroll animation="fade-up" delay={280} className="mt-7 flex justify-center md:mt-8">
-        <a
+        <BlobButton
           href="#consultation"
-          className="font-body inline-flex items-center gap-2 rounded-full bg-[#4E5426] px-8 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#4E5426]/90 sm:text-[15px] md:px-10"
+          className="font-body inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-[14px] font-semibold shadow-md sm:text-[15px] md:px-10"
         >
           Book Your Consultation Today
           <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-        </a>
+        </BlobButton>
       </AnimateOnScroll>
 
     </section>

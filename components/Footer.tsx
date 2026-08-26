@@ -1,4 +1,5 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
+import { BlobButton } from '@/components/BlobButton';
 import { SITE } from '@/lib/site';
 
 const treatments = [
@@ -146,13 +147,13 @@ export function Footer() {
             </div>
           </div>
 
-          <a
+          <BlobButton
             href="#consultation"
-            className="font-body mt-2 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#4E5426] shadow-sm transition-colors hover:bg-[#E3CC9D]"
+            className="[--blob-button-color:#E3CC9D] font-body mt-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-semibold shadow-sm"
           >
             Book Your Consultation
             <span className="material-symbols-outlined text-[17px]">arrow_forward</span>
-          </a>
+          </BlobButton>
         </div>
       </AnimateOnScroll>
 

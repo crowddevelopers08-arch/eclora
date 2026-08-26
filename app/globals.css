@@ -48,6 +48,8 @@ body {
   overflow-x: hidden;
 }
 
+.blob-filter { position: absolute; width: 0; height: 0; overflow: hidden; }
+
 .glass-card {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
@@ -184,6 +186,34 @@ body {
   mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
+/* Scroll-based marquee rows retain automatic movement while allowing drag,
+   swipe, mouse-wheel, and arrow-button navigation. */
+.manual-carousel { position: relative; width: 100%; }
+.manual-carousel__viewport {
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x;
+}
+.manual-carousel__viewport::-webkit-scrollbar { display: none; }
+.manual-carousel__viewport:active { cursor: grabbing; }
+.manual-carousel__track { display: flex; width: max-content; }
+.manual-carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.manual-carousel__arrow {
+  display: flex;
+  height: 38px;
+  width: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0;
+}
+
 /* =============================================
    TRAVELLING CARD HIGHLIGHT
    One card at a time flips to solid olive, left to right, on a loop.
@@ -233,6 +263,45 @@ body {
 }
 
 /* =============================================
+   JOURNEY — MOBILE STEP STACKING
+   Below sm every step becomes a sticky layer parked at the same offset under
+   the fixed header, so scrolling slides each step up over the previous one
+   and hands the screen to it. The steps keep their normal design — the
+   effect is pure layering, no card chrome.
+   ============================================= */
+
+@media (max-width: 639px) {
+  .journey-stack-item {
+    position: sticky;
+    top: 88px; /* clears the fixed header (~65px) */
+
+    /* The stacking IS the animation here, so cancel the scroll-fade base
+       state — a translated sticky element fights its own offset. */
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+
+  /* Space between steps is the scroll travel before the next covers this one.
+     Not `+ .journey-stack-item` — the display:none arrows sit between them. */
+  .journey-stack-item {
+    margin-top: 32px;
+  }
+  .journey-stack-item:first-child {
+    margin-top: 0;
+  }
+
+  /* Every step paints an opaque panel of the same height, so the incoming
+     step fully covers the one it lands on with no text showing through.
+     The generous padding is the safety margin: if one step's copy wraps to
+     an extra line, what peeks out below the next step is blank space. */
+  .journey-stack-item > * {
+    min-height: 240px;
+    padding-bottom: 40px;
+  }
+}
+
+/* =============================================
    BUTTON ANIMATIONS
    ============================================= */
 
@@ -254,6 +323,50 @@ body {
 }
 
 /* Solid filled button */
+.blob-btn {
+  --blob-button-color: #4E5426;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 2px solid var(--blob-button-color);
+  background: transparent;
+  color: var(--blob-button-color);
+  cursor: pointer;
+  transition: color 0.5s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  animation: blob-button-text 3.4s ease-in-out infinite;
+}
+.blob-btn::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: white; }
+.blob-btn:hover { animation: none; color: white; box-shadow: 0 12px 28px rgba(78, 84, 38, 0.22); transform: translateY(-2px); }
+.blob-btn:active { transform: translateY(0) scale(0.98); }
+.blob-btn:focus-visible { outline: 3px solid rgba(78, 84, 38, 0.35); outline-offset: 3px; }
+.blob-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+.blob-btn__label { position: relative; z-index: 2; display: inline-flex; align-items: inherit; justify-content: inherit; gap: inherit; }
+.blob-btn__label > * { color: inherit !important; }
+.blob-btn__inner { position: absolute; z-index: -1; inset: 0; overflow: hidden; border-radius: inherit; }
+.blob-btn__blobs { position: relative; display: block; height: 100%; filter: url('#goo'); }
+.blob-btn__blob { position: absolute; top: 2px; width: 25%; height: 100%; border-radius: 100%; background: var(--blob-button-color); transform: translate3d(0, 150%, 0) scale(1.4); animation: blob-idle 3.4s ease-in-out infinite; }
+.blob-btn__blob:nth-child(1) { left: 0; --blob-delay: 0s; }
+.blob-btn__blob:nth-child(2) { left: 30%; --blob-delay: 0.08s; }
+.blob-btn__blob:nth-child(3) { left: 60%; --blob-delay: 0.16s; }
+.blob-btn__blob:nth-child(4) { left: 90%; --blob-delay: 0.24s; }
+.blob-btn__blob { animation-delay: var(--blob-delay); }
+.blob-btn:hover .blob-btn__blob { animation: blob-fill 0.45s ease forwards; animation-delay: var(--blob-delay); }
+
+@keyframes blob-idle {
+  0%, 30% { transform: translate3d(0, 150%, 0) scale(1.4); }
+  48%, 70% { transform: translateZ(0) scale(1.4); }
+  100% { transform: translate3d(0, 150%, 0) scale(1.4); }
+}
+@keyframes blob-fill {
+  from { transform: translate3d(0, 150%, 0) scale(1.4); }
+  to { transform: translateZ(0) scale(1.4); }
+}
+@keyframes blob-button-text {
+  0%, 40% { color: var(--blob-button-color); }
+  52%, 76% { color: white; }
+  100% { color: var(--blob-button-color); }
+}
+
 .btn-primary {
   position: relative;
   overflow: hidden;
@@ -352,11 +465,17 @@ body {
   .cc-row .cc-card:first-child .cc-desc { color: rgba(255, 255, 255, 0.75); }
 
   .btn-primary,
-  .btn-icon {
+  .btn-icon,
+  .blob-btn {
     animation: none;
     transition: none;
     transform: none;
     box-shadow: none;
   }
   .btn-primary::before { display: none; }
+  .blob-btn__blob,
+  .blob-btn:hover .blob-btn__blob {
+    animation: none;
+    transform: translate3d(0, 150%, 0) scale(1.4);
+  }
 }

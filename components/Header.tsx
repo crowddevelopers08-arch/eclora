@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { SITE } from '@/lib/site';
+import { BlobButton } from '@/components/BlobButton';
 
 const navLinks = [
   { label: 'Results', href: '#results' },
@@ -45,22 +46,22 @@ export function Header() {
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
-          <a
+          <BlobButton
             href="#consultation"
-            className="font-body hidden rounded-full bg-[#4E5426] px-5 py-2.5 text-[14px] font-semibold text-white shadow-sm transition-colors hover:bg-[#4E5426]/90 sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[14px] xl:px-7 xl:text-[15px]"
+            className="font-body hidden rounded-full px-5 py-2.5 text-[14px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[14px] xl:px-7 xl:text-[15px]"
           >
             Book Your Consultation
-          </a>
+          </BlobButton>
 
-          <button
-            className="flex h-9 w-9 items-center justify-center rounded-md text-[#4E5426] transition-colors hover:bg-[#E3CC9D]/20 lg:hidden"
+          <BlobButton
+            className="flex h-9 w-9 items-center justify-center rounded-md lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
             <span className="material-symbols-outlined text-[26px]">
               {menuOpen ? 'close' : 'menu'}
             </span>
-          </button>
+          </BlobButton>
         </div>
       </nav>
 
@@ -78,13 +79,13 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-            <a
+            <BlobButton
               href="#consultation"
-              className="font-body mt-3 inline-flex justify-center rounded-full bg-[#4E5426] px-5 py-2.5 text-[15px] font-semibold text-white"
+              className="font-body mt-3 inline-flex justify-center rounded-full px-5 py-2.5 text-[15px] font-semibold"
               onClick={() => setMenuOpen(false)}
             >
               Book Your Consultation
-            </a>
+            </BlobButton>
           </div>
         </div>
       )}
