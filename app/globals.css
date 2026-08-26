@@ -316,7 +316,7 @@ body {
   /* Space between steps is the scroll travel before the next covers this one.
      Not `+ .journey-stack-item` — the display:none arrows sit between them. */
   .journey-stack-item {
-    margin-top: 32px;
+    margin-top: 18px;
   }
   .journey-stack-item:first-child {
     margin-top: 0;
@@ -327,8 +327,8 @@ body {
      The generous padding is the safety margin: if one step's copy wraps to
      an extra line, what peeks out below the next step is blank space. */
   .journey-stack-item > * {
-    min-height: 240px;
-    padding-bottom: 40px;
+    min-height: 210px;
+    padding-bottom: 20px;
   }
 }
 

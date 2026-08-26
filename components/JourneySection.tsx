@@ -73,15 +73,15 @@ export function JourneySection() {
                     <step.Icon aria-hidden strokeWidth={1.75} className="h-6 w-6 text-white" />
                   </div>
 
-                  <h3 className="mt-4 font-label text-[15px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[16px]">
+                  <h3 className="mt-3 font-label text-[15px] font-extrabold uppercase tracking-[0.18em] text-[#1E2115] sm:text-[16px]">
                     Step {step.num}
                   </h3>
 
-                  <p className="mt-1.5 font-heading text-[16px] font-bold leading-[1.3] text-[#4E5426] sm:text-[16px]">
+                  <p className="mt-1 font-heading text-[16px] font-bold leading-[1.3] text-[#4E5426] sm:text-[16px]">
                     {step.title}
                   </p>
 
-                  <p className="mt-2.5 max-w-[280px] font-body text-[15px] leading-[1.8] text-[#5F6352] sm:text-[16px]">
+                  <p className="mt-2 max-w-[280px] font-body text-[15px] leading-[1.8] text-[#5F6352] sm:text-[16px]">
                     {step.desc}
                   </p>
                 </div>
