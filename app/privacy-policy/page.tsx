@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
           <div className="space-y-6 sm:space-y-8 md:space-y-10">
 
             <PolicySection title="1. Information We Collect">
-              <p>We may collect the following types of information:</p>
+              <p>We may collect the following types of informations:</p>
               <ul>
                 <li><strong>Personal Identification Information:</strong> Name, phone number, email address, age, and gender — provided voluntarily when you book a consultation or fill out a contact form.</li>
                 <li><strong>Skin, Hair &amp; Health Information:</strong> Skin and hair concerns, treatment history, clinical photographs, existing medical conditions, allergies, and medications — collected to assess suitability and plan accurate, personalised treatment. This information is handled with the highest level of confidentiality.</li>
