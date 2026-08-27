@@ -12,6 +12,7 @@ type ManualCarouselProps = {
 export function ManualCarousel({ children, duration = 38, className = '' }: ManualCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const resumeAtRef = useRef(0);
+  const touchingRef = useRef(false);
   const dragRef = useRef({ active: false, startX: 0, startScrollLeft: 0 });
 
   const pauseAutoScroll = () => {
@@ -27,7 +28,9 @@ export function ManualCarousel({ children, duration = 38, className = '' }: Manu
       const elapsed = time - previousTime;
       previousTime = time;
 
-      if (viewport && Date.now() >= resumeAtRef.current) {
+      // Never write scrollLeft while a finger is down — on iOS that cancels
+      // the page's vertical momentum scroll.
+      if (viewport && !touchingRef.current && Date.now() >= resumeAtRef.current) {
         const loopWidth = viewport.scrollWidth / 2;
         if (loopWidth > 0) {
           viewport.scrollLeft += (loopWidth / (duration * 1000)) * elapsed;
@@ -55,6 +58,9 @@ export function ManualCarousel({ children, duration = 38, className = '' }: Manu
         ref={viewportRef}
         className="manual-carousel__viewport"
         onWheel={pauseAutoScroll}
+        onTouchStart={() => { touchingRef.current = true; pauseAutoScroll(); }}
+        onTouchEnd={() => { touchingRef.current = false; pauseAutoScroll(); }}
+        onTouchCancel={() => { touchingRef.current = false; pauseAutoScroll(); }}
         onPointerDown={(event) => {
           if (event.pointerType === 'mouse') {
             dragRef.current = { active: true, startX: event.clientX, startScrollLeft: event.currentTarget.scrollLeft };

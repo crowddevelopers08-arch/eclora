@@ -198,13 +198,23 @@ body {
 .manual-carousel__viewport,
 .carousel-gutter {
   overflow-x: auto;
+  overflow-y: hidden;
   padding-inline: var(--carousel-gutter);
   scroll-padding-inline: var(--carousel-gutter);
+}
+.carousel-gutter {
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
 }
 .manual-carousel__viewport {
   scrollbar-width: none;
   cursor: grab;
-  touch-action: pan-x;
+  /* Allow both axes so a vertical swipe that starts on the carousel still
+     scrolls the page; the browser locks the axis from the initial direction. */
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
 }
 .manual-carousel__viewport::-webkit-scrollbar { display: none; }
 .manual-carousel__viewport:active { cursor: grabbing; }

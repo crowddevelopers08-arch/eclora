@@ -17,6 +17,7 @@ export function CardCarousel({
   const [active, setActive] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isJumping = useRef(false);
+  const touchingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollSettleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -37,7 +38,9 @@ export function CardCarousel({
   // Auto-advance
   const advance = useCallback(() => {
     const el = scrollRef.current;
-    if (!el) return;
+    // Skip while a finger is down: a programmatic smooth scroll here would
+    // cancel the page's vertical momentum scroll on mobile.
+    if (!el || touchingRef.current) return;
     const idx = Math.round(el.scrollLeft / el.offsetWidth);
     el.scrollTo({ left: (idx + 1) * el.offsetWidth, behavior: 'smooth' });
   }, []);
@@ -104,6 +107,9 @@ export function CardCarousel({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
+        onTouchStart={() => { touchingRef.current = true; startTimer(); }}
+        onTouchEnd={() => { touchingRef.current = false; startTimer(); }}
+        onTouchCancel={() => { touchingRef.current = false; startTimer(); }}
         className="carousel-gutter flex w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollSnapType: 'x mandatory' }}
       >
