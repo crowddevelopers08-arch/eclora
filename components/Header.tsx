@@ -48,9 +48,10 @@ export function Header() {
         <div className="flex items-center gap-3">
           <BlobButton
             href="#consultation"
-            className="font-body hidden rounded-full px-5 py-2.5 text-[16px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[16px] xl:px-7 xl:text-[16px]"
+            className="font-body hidden whitespace-nowrap rounded-full px-5 py-2.5 text-[16px] font-semibold shadow-sm sm:inline-flex md:px-6 md:py-3 lg:px-5 lg:text-[16px] xl:px-7 xl:text-[16px]"
           >
-            Book
+            <span className="xl:hidden">Book</span>
+            <span className="hidden xl:inline">Book Your Consultation</span>
           </BlobButton>
 
           <BlobButton
