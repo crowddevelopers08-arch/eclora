@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import Script from "next/script";
 import { ConsultationModal } from "@/components/ConsultationModal";
+import { cldPng } from "@/lib/site";
 import "./globals.css";
 
 /* Single typeface across the whole site: Jost, per the brand's
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
     "Personalised aesthetic care at Eclora Aesthetics — pigmentation treatments, laser hair reduction, HIFU skin tightening, exosome therapy, laser toning and hair regrowth. Advanced technology, expert guidance, visible results.",
   icons: {
     icon: [
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+      { url: cldPng("favicon-32"), sizes: "32x32", type: "image/png" },
+      { url: cldPng("favicon-192"), sizes: "192x192", type: "image/png" },
     ],
-    shortcut: "/favicon-32.png",
-    apple: "/apple-touch-icon.png",
+    shortcut: cldPng("favicon-32"),
+    apple: cldPng("apple-touch-icon"),
   },
 };
 

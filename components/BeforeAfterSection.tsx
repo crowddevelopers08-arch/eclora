@@ -1,23 +1,24 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
 import { BlobButton } from '@/components/BlobButton';
 import { ManualCarousel } from '@/components/ManualCarousel';
+import { cld } from '@/lib/site';
 
 /**
  * Results gallery — one auto-scrolling row of cards.
  *
- * `image` takes any https URL (Cloudinary is whitelisted in next.config.ts) or a
- * path under /public. Cards render a branded placeholder while a slot is empty.
- * The supplied creatives are square (1:1) with the logo and caption baked in, so
- * the card's media box is square to show each one uncropped.
+ * `image` is a Cloudinary public ID resolved through `cld()`. Cards render a
+ * branded placeholder while a slot is empty. The supplied creatives are square
+ * (1:1) with the logo and caption baked in, so the card's media box is square to
+ * show each one uncropped.
  */
 type Result = { id: number; title: string; icon: string; image: string };
 
 const RESULTS: Result[] = [
-  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: '/pigbefaft.png' },
-  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: '/laserbefaft.png' },
-  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: '/hairregrowthbefaft.png' },
-  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: '/skinrejuvenationbefaft.png' },
-  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: '/endolaserbefaft.png' },
+  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: cld('pigbefaft', 640) },
+  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: cld('laserbefaft', 640) },
+  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: cld('hairregrowthbefaft', 640) },
+  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: cld('skinrejuvenationbefaft', 640) },
+  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: cld('endolaserbefaft', 640) },
 ];
 
 function ResultCard({ item }: { item: Result }) {

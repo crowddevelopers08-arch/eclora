@@ -1,4 +1,4 @@
-import { SITE } from '@/lib/site';
+import { SITE, cld } from '@/lib/site';
 import { BlobButton } from '@/components/BlobButton';
 
 export function HeroSection() {
@@ -12,7 +12,7 @@ export function HeroSection() {
         {/* Banner — desktop only, always fully visible, never cropped */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/newban.png"
+          src={cld('newban', 1920)}
           alt=""
           aria-hidden
           className="hidden w-full lg:block"
@@ -45,7 +45,7 @@ export function HeroSection() {
             {/* Mobile banner — sits between the headline and the subheadline */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/newmobban.png"
+              src={cld('newmobban', 900)}
               alt=""
               aria-hidden
               className="hero-anim-video mt-6 block w-full rounded-2xl sm:mt-7 lg:hidden"

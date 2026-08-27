@@ -1,3 +1,27 @@
+/** Cloudinary account holding every site image. */
+const CLOUD_NAME = 'liu8jcpl';
+
+/**
+ * Build a Cloudinary delivery URL for an asset public ID.
+ *
+ * `f_auto,q_auto` lets Cloudinary negotiate AVIF/WebP and a sane quality per
+ * request — the source PNGs are up to 1.8 MB each and drop to roughly a tenth
+ * of that. Pass `width` to also cap the delivered pixel width (`w_<n>`); the
+ * assets are far larger than any slot they render into.
+ */
+export function cld(publicId: string, width?: number): string {
+  const transforms = ['f_auto', 'q_auto', ...(width ? [`w_${width}`] : [])].join(',');
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${publicId}.png`;
+}
+
+/**
+ * Same asset, delivered as a genuine PNG. Used for favicons and app icons, where
+ * `f_auto` would negotiate WebP and browsers/OSes expect the declared type.
+ */
+export function cldPng(publicId: string): string {
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto/${publicId}.png`;
+}
+
 /**
  * Single source of truth for Eclora Aesthetics brand details.
  * Contact details are the clinic's live ones. The social links below are still
@@ -19,12 +43,12 @@ export const SITE = {
   instagram: '#',
   facebook: '#',
 
-  /** Wordmark, background keyed out and trimmed — derived from /eclonew-logo.png */
-  logo: '/eclora-logo.png',
+  /** Wordmark, background keyed out and trimmed — derived from the eclonew-logo asset */
+  logo: cld('eclora-logo', 480),
   /** Sand-tinted wordmark for dark olive surfaces (footer) */
-  logoLight: '/eclora-logo-light.png',
-  /** Circular badge — derived from /eclo-fav.png */
-  favicon: '/favicon-192.png',
+  logoLight: cld('eclora-logo-light', 480),
+  /** Circular badge — derived from the eclo-fav asset */
+  favicon: cldPng('favicon-192'),
 } as const;
 
 /**

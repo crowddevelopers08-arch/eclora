@@ -3,6 +3,7 @@ import { LuGem, LuMicroscope, LuSlidersHorizontal, LuSparkles, LuStethoscope } f
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
 import { BlobButton } from '@/components/BlobButton';
 import { ManualCarousel } from '@/components/ManualCarousel';
+import { cld } from '@/lib/site';
 
 const REASONS: { Icon: IconType; title: string; desc: string }[] = [
   {
@@ -45,7 +46,7 @@ function ReasonCard({
     <div
       className={`flex min-h-[300px] flex-col rounded-[26px] bg-[#E3CC9D]/25 bg-cover bg-center bg-no-repeat p-7 sm:min-h-[330px] sm:p-8 lg:min-h-[360px] lg:p-9 ${className}`}
       style={{
-        backgroundImage: "url('/bg.png')",
+        backgroundImage: `url('${cld('bg', 800)}')`,
       } as React.CSSProperties}
     >
       <Icon aria-hidden strokeWidth={1.5} className="mb-6 h-10 w-10 flex-shrink-0 text-[#4E5426] sm:h-11 sm:w-11 lg:mb-7 lg:h-12 lg:w-12" />

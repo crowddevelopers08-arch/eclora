@@ -1,16 +1,17 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
 import { BlobButton } from '@/components/BlobButton';
 import { ManualCarousel } from '@/components/ManualCarousel';
+import { cld } from '@/lib/site';
 
 /** Treatment offer posters — each artwork already carries its own pricing and features. */
 const POSTERS = [
-  { id: 'pigmentation',  title: 'Pigmentation Treatments', image: '/pigmentation-poster.png' },
-  { id: 'lhr',           title: 'Laser Hair Reduction',    image: '/laser-poster.png' },
-  { id: 'hifu',          title: 'HIFU Skin Tightening',    image: '/thightning-poster.png' },
-  { id: 'exosomes',      title: 'Duet Exosomes Therapy',   image: '/exosomes-poster.png' },
-  { id: 'laser-toning',  title: 'Laser Toning',            image: '/toning-poster.png' },
-  { id: 'party-peel',    title: 'Party Peel Facial',       image: '/party-poster.png' },
-  { id: 'hair-regrowth', title: 'Hair Regrowth Treatments', image: '/regrowth-poster.png' },
+  { id: 'pigmentation',  title: 'Pigmentation Treatments',  image: cld('pigmentation-poster', 640) },
+  { id: 'lhr',           title: 'Laser Hair Reduction',     image: cld('laser-poster', 640) },
+  { id: 'hifu',          title: 'HIFU Skin Tightening',     image: cld('thightning-poster', 640) },
+  { id: 'exosomes',      title: 'Duet Exosomes Therapy',    image: cld('exosomes-poster', 640) },
+  { id: 'laser-toning',  title: 'Laser Toning',             image: cld('toning-poster', 640) },
+  { id: 'party-peel',    title: 'Party Peel Facial',        image: cld('party-poster', 640) },
+  { id: 'hair-regrowth', title: 'Hair Regrowth Treatments', image: cld('regrowth-poster', 640) },
 ] as const;
 
 function PosterCard({ item }: { item: (typeof POSTERS)[number] }) {

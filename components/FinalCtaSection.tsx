@@ -1,5 +1,6 @@
 import { AnimateOnScroll } from '@/components/AnimateOnScroll';
 import { BlobButton } from '@/components/BlobButton';
+import { cld } from '@/lib/site';
 
 export function FinalCtaSection() {
   return (
@@ -8,7 +9,7 @@ export function FinalCtaSection() {
         <AnimateOnScroll animation="fade-up">
           <div
             className="rounded-[2rem] bg-cover bg-center bg-no-repeat px-6 py-10 text-center sm:px-10 md:px-14 md:py-14 lg:py-16"
-            style={{ backgroundImage: "url('/ctaback.png')" }}
+            style={{ backgroundImage: `url('${cld('ctaback', 1600)}')` }}
           >
             <div className="mx-auto max-w-[720px]">
 
