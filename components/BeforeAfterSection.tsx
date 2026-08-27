@@ -5,31 +5,36 @@ import { ManualCarousel } from '@/components/ManualCarousel';
 /**
  * Results gallery — one auto-scrolling row of cards.
  *
- * TODO: drop the client's approved result photos into `image` (any https URL —
- * Cloudinary is already whitelisted in next.config.ts, or use a path under
- * /public). Cards render a branded placeholder while a slot is empty.
+ * `image` takes any https URL (Cloudinary is whitelisted in next.config.ts) or a
+ * path under /public. Cards render a branded placeholder while a slot is empty.
+ * The supplied creatives are square (1:1) with the logo and caption baked in, so
+ * the card's media box is square to show each one uncropped.
  */
-const RESULTS = [
-  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: '' },
-  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: '' },
-  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: '' },
-  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: '' },
-  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: '' },
-] as const;
+type Result = { id: number; title: string; icon: string; image: string };
 
-function ResultCard({ item }: { item: (typeof RESULTS)[number] }) {
+const RESULTS: Result[] = [
+  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: '/pigbefaft.png' },
+  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: '/laserbefaft.png' },
+  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: '/hairregrowthbefaft.png' },
+  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: '/skinrejuvenationbefaft.png' },
+  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: '/endolaserbefaft.png' },
+];
+
+function ResultCard({ item }: { item: Result }) {
   return (
     <div className="mr-5 w-[250px] flex-shrink-0 overflow-hidden rounded-2xl border border-[#E3CC9D] bg-white shadow-sm transition-shadow hover:shadow-md sm:w-[290px] lg:w-[320px]">
       {item.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={item.image}
-          alt={`${item.title} treatment result`}
+          alt={`${item.title} treatment result — before and after`}
           loading="lazy"
-          className="h-[230px] w-full object-cover sm:h-[260px]"
+          width={1254}
+          height={1254}
+          className="aspect-square w-full object-cover"
         />
       ) : (
-        <div className="flex h-[230px] w-full items-center justify-center bg-[#E3CC9D]/20 sm:h-[260px]">
+        <div className="flex aspect-square w-full items-center justify-center bg-[#E3CC9D]/20">
           <span
             className="material-symbols-outlined text-[38px] text-[#4E5426]/25"
             style={{ fontVariationSettings: '"FILL" 1' }}
