@@ -42,62 +42,38 @@ export default function RootLayout({
           {`
             (function(w,d,s,l,i){
               w[l]=w[l]||[];
-              w[l].push({
-                'gtm.start': new Date().getTime(),
-                event:'gtm.js'
-              });
+              w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
               var f=d.getElementsByTagName(s)[0],
                   j=d.createElement(s),
                   dl=l!='dataLayer'?'&l='+l:'';
               j.async=true;
               j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
               f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-T7RCDSHC');
+            })(window,document,'script','dataLayer','GTM-KSSTBC79');
           `}
         </Script>
-
-        {/* Google Ads Click to call conversion */}
-        <Script id="gtag-report-conversion" strategy="afterInteractive">
-          {`
-            function gtag_report_conversion(url) {
-              var callback = function () {
-                if (typeof(url) != 'undefined') {
-                  window.location = url;
-                }
-              };
-              gtag('event', 'conversion', {
-                  'send_to': 'AW-11382137331/ZHdKCKrEw84cEPPDtrMq',
-                  'value': 1.0,
-                  'currency': 'INR',
-                  'event_callback': callback
-              });
-              return false;
-            }
-          `}
-        </Script>
+        {/* End Google Tag Manager */}
 
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-T7RCDSHC');
-            `,
-          }}
-        />
-        {/* End Google Tag Manager */}
       </head>
 
       <body
         className={`${jost.variable} font-body antialiased selection:bg-[#4E5426] selection:text-[#E3CC9D]`}
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KSSTBC79"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         {children}
         <ConsultationModal />
       </body>
