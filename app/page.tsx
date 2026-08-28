@@ -1,5 +1,6 @@
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
+import { BannerCarousel } from '@/components/BannerCarousel';
 import { BeforeAfterSection } from '@/components/BeforeAfterSection';
 import { WhyChooseSection } from '@/components/WhyChooseSection';
 import { TreatmentsSection } from '@/components/TreatmentsSection';
@@ -16,7 +17,8 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <HeroSection />
+        {/* <HeroSection /> */}
+        <BannerCarousel />
         <BeforeAfterSection />
         <WhyChooseSection />
         <TreatmentsSection />
