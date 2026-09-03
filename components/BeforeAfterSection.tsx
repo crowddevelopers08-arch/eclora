@@ -8,17 +8,17 @@ import { cld } from '@/lib/site';
  *
  * `image` is a Cloudinary public ID resolved through `cld()`. Cards render a
  * branded placeholder while a slot is empty. The supplied creatives are square
- * (1:1) with the logo and caption baked in, so the card's media box is square to
- * show each one uncropped.
+ * (1:1) JPGs with the logo and caption baked in, so the card's media box is
+ * square to show each one uncropped.
  */
 type Result = { id: number; title: string; icon: string; image: string };
 
 const RESULTS: Result[] = [
-  { id: 1, title: 'Pigmentation',         icon: 'blur_on',       image: cld('pigbefaft', 640) },
-  { id: 2, title: 'Laser Hair Reduction', icon: 'auto_fix_high', image: cld('laserbefaft', 640) },
-  { id: 3, title: 'Hair Regrowth',        icon: 'psychiatry',    image: cld('hairregrowthbefaft', 640) },
-  { id: 4, title: 'Skin Rejuvenation',    icon: 'spa',           image: cld('skinrejuvenationbefaft', 640) },
-  { id: 5, title: 'Endolaser',            icon: 'stat_minus_2',  image: cld('endolaserbefaft', 640) },
+  { id: 1, title: 'Acne & Acne Scars',       icon: 'healing',       image: cld('Before-After_1', 640, 'jpg') },
+  { id: 2, title: 'Laser Hair Reduction',    icon: 'auto_fix_high', image: cld('Before-After_2', 640, 'jpg') },
+  { id: 3, title: 'Underarm Hair Reduction', icon: 'auto_fix_high', image: cld('Before-After_3', 640, 'jpg') },
+  { id: 4, title: 'Pigmentation',            icon: 'blur_on',       image: cld('Before-After_4', 640, 'jpg') },
+  { id: 5, title: 'Hair Regrowth',           icon: 'psychiatry',    image: cld('Before-After_5', 640, 'jpg') },
 ];
 
 function ResultCard({ item }: { item: Result }) {
@@ -30,8 +30,8 @@ function ResultCard({ item }: { item: Result }) {
           src={item.image}
           alt={`${item.title} treatment result — before and after`}
           loading="lazy"
-          width={1254}
-          height={1254}
+          width={1080}
+          height={1080}
           className="aspect-square w-full object-cover"
         />
       ) : (

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BlobButton } from '@/components/BlobButton';
+import { cld } from '@/lib/site';
 
 /**
  * Full-bleed banner carousel.
@@ -19,40 +20,39 @@ type Banner = {
   id: number;
   /** Sentence describing the creative, not "banner 1" — it is read aloud. */
   alt: string;
-  /** Wide creative (≥768px), served from `public/`. */
+  /** Wide creative (≥768px). */
   desktop: string;
-  /** Portrait creative (<768px), served from `public/`. */
+  /** Portrait creative (<768px). */
   mobile: string;
   /** Optional destination — a slide with no href renders as a plain image. */
   href?: string;
 };
 
 /**
- * Files live in `public/banners/`; the path here is what the browser requests,
- * so it starts at `/banners/…` — `public` itself is never part of the URL.
- * Export the desktop creatives around 1600px wide and the portrait ones around
- * 900px, since nothing renders larger than that.
+ * Creatives live in Cloudinary and are resolved through `cld()`. The widths cap
+ * delivery at roughly what each slot paints — 1600px for the wide exports,
+ * 900px for the portrait ones — since nothing renders larger than that.
  */
 const BANNERS: Banner[] = [
   {
     id: 1,
     alt: 'Advanced skin, hair and body treatments at Eclora Aesthetics',
-    desktop: '/mainban1.png',
-    mobile: '/ecban1.png',
+    desktop: cld('mainban1', 1600),
+    mobile: cld('ecban1', 900),
     href: '#consultation',
   },
   {
     id: 2,
     alt: 'Laser hair reduction packages at Eclora Aesthetics',
-    desktop: '/mainban2.png',
-    mobile: '/ecban2.png',
+    desktop: cld('mainban2', 1600),
+    mobile: cld('ecban2', 900),
     href: '#treatments',
   },
   {
     id: 3,
     alt: 'Book a consultation with the Eclora Aesthetics team',
-    desktop: '/mainban3.png',
-    mobile: '/ecban3.png',
+    desktop: cld('mainban3', 1600),
+    mobile: cld('ecban3', 900),
     href: '#consultation',
   },
 ];

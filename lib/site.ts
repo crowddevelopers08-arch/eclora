@@ -8,10 +8,14 @@ const CLOUD_NAME = 'liu8jcpl';
  * request — the source PNGs are up to 1.8 MB each and drop to roughly a tenth
  * of that. Pass `width` to also cap the delivered pixel width (`w_<n>`); the
  * assets are far larger than any slot they render into.
+ *
+ * `ext` is the format the asset was uploaded in. `f_auto` overrides it on
+ * delivery, so it only has to match what Cloudinary stores for the ID to
+ * resolve.
  */
-export function cld(publicId: string, width?: number): string {
+export function cld(publicId: string, width?: number, ext: 'png' | 'jpg' = 'png'): string {
   const transforms = ['f_auto', 'q_auto', ...(width ? [`w_${width}`] : [])].join(',');
-  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${publicId}.png`;
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transforms}/${publicId}.${ext}`;
 }
 
 /**
