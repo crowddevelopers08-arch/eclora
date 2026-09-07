@@ -5,20 +5,20 @@ import { cld } from '@/lib/site';
 
 /** Treatment offer posters — each artwork already carries its own pricing and features. */
 const POSTERS = [
-  { id: 'pigmentation',  title: 'Pigmentation Treatments',  image: cld('pigmentation-poster', 640) },
-  { id: 'lhr',           title: 'Laser Hair Reduction',     image: cld('laser-poster', 640) },
-  { id: 'hifu',          title: 'HIFU Skin Tightening',     image: cld('thightning-poster', 640) },
-  { id: 'exosomes',      title: 'Duet Exosomes Therapy',    image: cld('exosomes-poster', 640) },
-  { id: 'laser-toning',  title: 'Laser Toning',             image: cld('toning-poster', 640) },
-  { id: 'party-peel',    title: 'Party Peel Facial',        image: cld('party-poster', 640) },
-  { id: 'hair-regrowth', title: 'Hair Regrowth Treatments', image: cld('regrowth-poster', 640) },
+  { id: 'pigmentation',  title: 'Pigmentation Treatments',  image: cld('new-pigmentation', 760) },
+  { id: 'lhr',           title: 'Laser Hair Reduction',     image: cld('new-LaserHairReduction', 760) },
+  { id: 'hifu',          title: 'HIFU Skin Tightening',     image: cld('new-HIFU', 760) },
+  { id: 'exosomes',      title: 'Duet Exosomes Therapy',    image: cld('new-Duet', 760) },
+  { id: 'laser-toning',  title: 'Laser Toning',             image: cld('new-LaserToning', 760) },
+  { id: 'party-peel',    title: 'Party Peel Facial',        image: cld('new-PartyPeelFacial', 760) },
+  { id: 'hair-regrowth', title: 'Hair Regrowth Treatments', image: cld('new-HairRegrowth', 760) },
 ] as const;
 
 function PosterCard({ item }: { item: (typeof POSTERS)[number] }) {
   return (
     <a
       href="#consultation"
-      className="mr-5 block w-[240px] flex-shrink-0 overflow-hidden rounded-2xl border border-[#E3CC9D] bg-white shadow-sm transition-shadow hover:shadow-lg sm:w-[280px] lg:w-[320px]"
+      className="mr-5 block w-[285px] flex-shrink-0 overflow-hidden rounded-2xl border border-[#E3CC9D] bg-white shadow-sm transition-shadow hover:shadow-lg sm:w-[330px] lg:w-[380px]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
