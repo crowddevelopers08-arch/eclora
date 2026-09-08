@@ -54,6 +54,52 @@ export default function RootLayout({
         </Script>
         {/* End Google Tag Manager */}
 
+        {/* Google tag (gtag.js) — Google Ads */}
+        <Script
+          id="gtag-js"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18275005989"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18275005989');
+          `}
+        </Script>
+
+        {/* Click-to-call conversion. Exposes gtag_report_conversion for manual
+            use, and fires it automatically for every tel: link on the site. */}
+        <Script id="gtag-call-conversion" strategy="afterInteractive">
+          {`
+            window.gtag_report_conversion = function (url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                'send_to': 'AW-18275005989/KCKgCP_0n_EcEKXsmYpE',
+                'value': 1.0,
+                'currency': 'INR',
+                'event_callback': callback
+              });
+              return false;
+            };
+            document.addEventListener('click', function (e) {
+              var el = e.target;
+              if (!el || typeof el.closest !== 'function') return;
+              if (!el.closest('a[href^="tel:"]')) return;
+              gtag('event', 'conversion', {
+                'send_to': 'AW-18275005989/KCKgCP_0n_EcEKXsmYpE',
+                'value': 1.0,
+                'currency': 'INR'
+              });
+            });
+          `}
+        </Script>
+
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"

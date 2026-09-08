@@ -152,10 +152,23 @@ export default function ThankYouPage() {
       {/* Google Ads Conversion */}
       <Script id="google-ads-conversion" strategy="afterInteractive">
         {`
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function(){dataLayer.push(arguments);};
           gtag('event', 'conversion', {
             'send_to': 'AW-17425479208/HZA8CPiu6LQcEKjsjvVA',
             'value': 1.0,
             'currency': 'INR'
+          });
+        `}
+      </Script>
+
+      {/* Google Ads Conversion — LP Form Submission */}
+      <Script id="google-ads-lp-form-conversion" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function(){dataLayer.push(arguments);};
+          gtag('event', 'conversion', {
+            'send_to': 'AW-18275005989/-JliCMHgn_EcEKXsmYpE'
           });
         `}
       </Script>
