@@ -62,7 +62,7 @@ export const SITE = {
  * Google Business Profile (https://g.page/r/<id>/review). Until then, 4–5 star
  * ratings fall back to the clinic's Google Maps listing.
  */
-export const GOOGLE_REVIEW_URL = 'REPLACE_WITH_GOOGLE_REVIEW_LINK';
+export const GOOGLE_REVIEW_URL = 'https://g.page/r/Ca0fhFQfnL_1EBM/review';
 export const GOOGLE_REVIEW_FALLBACK_URL = SITE.mapUrl;
 export const REVIEW_LINK_IS_PLACEHOLDER = GOOGLE_REVIEW_URL.includes('REPLACE_WITH');
 
