@@ -2,6 +2,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
+import { sendToTeleCRM } from '@/lib/telecrm';
 
 interface LeadInput {
   name: string;
@@ -14,7 +15,6 @@ interface LeadInput {
   sheetTab?: string;
   telecrmPageName?: string;
   treatmentType?: string;
-  concernField?: string;
 }
 
 type LeadRouteConfig = {
@@ -22,8 +22,6 @@ type LeadRouteConfig = {
   sheetTab: string;
   telecrmPageName: string;
   treatmentType: string;
-  /** Label of the TeleCRM custom field that holds this page's concern question. */
-  concernField: string;
 };
 
 const DEFAULT_ROUTE: LeadRouteConfig = {
@@ -31,7 +29,6 @@ const DEFAULT_ROUTE: LeadRouteConfig = {
   sheetTab: 'Eclora Leads',
   telecrmPageName: 'eclora-aesthetics-website',
   treatmentType: 'Aesthetic Treatments',
-  concernField: 'Treatment Concern',
 };
 
 function isValidIndianPhone(raw: string) {
@@ -76,80 +73,25 @@ async function appendToGoogleSheet(data: LeadInput) {
   catch { return { success: true }; }
 }
 
-async function sendToTeleCRM(data: LeadInput) {
-  const endpoint = process.env.TELECRM_API_URL;
-  if (!endpoint) throw new Error('TELECRM_API_URL is not set');
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
-
-  const name = data.name.trim();
-  const email = data.email?.trim() || '';
-  const phone = data.phone.replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '');
+function sendLeadToTeleCRM(data: LeadInput) {
   const concern = data.healthGoal?.trim() || '';
-  const treatmentType = data.treatmentType || DEFAULT_ROUTE.treatmentType;
-  const concernField = data.concernField || DEFAULT_ROUTE.concernField;
+  const pageUrl = data.pageUrl || data.source || DEFAULT_ROUTE.source;
 
-  // TeleCRM ignores `fields` keys that don't match a field defined on the
-  // enterprise, so only send canonical keys plus the page's own custom field.
-  const fields: Record<string, string> = {
-    name,
-    phone,
-    'Lead Status': 'new',
-    'Lead Request Type': 'consultation',
-    'Treatment Type': treatmentType,
-    Source: data.pageUrl || data.source || DEFAULT_ROUTE.source,
-    PageName: data.telecrmPageName || DEFAULT_ROUTE.telecrmPageName,
-    Country: 'India',
-  };
-
-  if (email) fields.email = email;
-  if (concern) fields[concernField] = concern;
-
-  const payload = {
-    fields,
-    actions: [
-      { type: 'SYSTEM_NOTE', text: `Lead Source: ${fields.Source}` },
-      { type: 'SYSTEM_NOTE', text: `Landing Page: ${data.source || DEFAULT_ROUTE.source}` },
-      { type: 'SYSTEM_NOTE', text: `Treatment Type: ${treatmentType}` },
-      { type: 'SYSTEM_NOTE', text: `Treatment Concern: ${concern || 'Not specified'}` },
-      { type: 'SYSTEM_NOTE', text: `Name: ${name}` },
-      { type: 'SYSTEM_NOTE', text: `Phone: ${phone}` },
-      { type: 'SYSTEM_NOTE', text: `Email: ${email || 'Not provided'}` },
-      { type: 'SYSTEM_NOTE', text: 'Consent Given: Yes' },
+  return sendToTeleCRM({
+    name: data.name,
+    phone: data.phone,
+    email: data.email,
+    message: `Consultation enquiry - ${concern || 'Aesthetic treatment'} at Eclora Aesthetics`,
+    requestType: 'consultation',
+    pageName: data.telecrmPageName || DEFAULT_ROUTE.telecrmPageName,
+    notes: [
+      `Lead Source: ${data.source || DEFAULT_ROUTE.source}`,
+      `Live URL: ${pageUrl}`,
+      `Treatment Type: ${data.treatmentType || DEFAULT_ROUTE.treatmentType}`,
+      `Treatment Concern: ${concern || 'Not specified'}`,
+      `Email: ${data.email?.trim() || 'Not provided'}`,
     ],
-  };
-
-  try {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.TELECRM_API_KEY}`,
-        'X-Client-ID': 'eclora-aesthetics-website',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeout);
-
-    if (res.status === 204) return { status: 'success', message: 'Lead created (204)' };
-
-    const text = await res.text();
-
-    if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) {
-      throw new Error('TeleCRM returned an HTML response - check the API URL');
-    }
-
-    const json = text ? JSON.parse(text) : {};
-    if (!res.ok) throw new Error(json.message || `TeleCRM HTTP ${res.status}`);
-    return json;
-  } catch (err) {
-    clearTimeout(timeout);
-    throw err instanceof Error ? err : new Error(String(err));
-  }
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -205,12 +147,11 @@ export async function POST(req: NextRequest) {
     sheetTab: routeConfig.sheetTab,
     telecrmPageName: routeConfig.telecrmPageName,
     treatmentType: routeConfig.treatmentType,
-    concernField: routeConfig.concernField,
   };
 
   const [sheetResult, crmResult] = await Promise.allSettled([
     appendToGoogleSheet(leadData),
-    sendToTeleCRM(leadData),
+    sendLeadToTeleCRM(leadData),
   ]);
 
   if (sheetResult.status === 'rejected') {

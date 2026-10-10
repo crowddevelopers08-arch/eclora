@@ -564,3 +564,92 @@ body {
   .blob-btn::before,
   .btn-icon::before { display: none; }
 }
+
+/* =============================================
+   REVIEW FUNNEL — /review and /client-feedback
+   Scoped to `.review-shell` so it never touches the landing page.
+   ============================================= */
+
+.review-shell {
+  /* Deep olive frame, white card, sand-tint fills */
+  --r-deep: #4E5426;
+  --r-ink: #1E2115;
+  --r-muted: #5F6352;
+  --r-card: #FFFFFF;
+  --r-canvas: #FBF7EF;
+  --r-line: #EADBB9;
+  --r-focus-ring: rgba(78, 84, 38, 0.14);
+  /* Star accent — sand deepened so filled stars read on white */
+  --r-accent: #C29B4F;
+  --r-accent-deep: #6E5523;
+  --r-accent-soft: rgba(227, 204, 157, 0.3);
+  --r-accent-line: #E3CC9D;
+
+  background-color: var(--r-deep);
+  color: var(--r-ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.review-shell h1 {
+  font-family: var(--font-jost), system-ui, sans-serif;
+  font-size: clamp(2rem, 1.25rem + 2.6vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.review-shell input,
+.review-shell textarea {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.review-shell :focus-visible {
+  outline: 2px solid var(--r-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.review-shell .r-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-size: clamp(0.9375rem, 0.9rem + 0.16vw, 1rem);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.25s, background 0.25s, color 0.2s, border-color 0.2s;
+}
+
+.review-shell .r-btn-primary {
+  background: var(--r-deep);
+  color: #fff;
+  box-shadow: 0 12px 28px -12px rgba(78, 84, 38, 0.5);
+}
+
+.review-shell .r-btn-primary:not(:disabled):hover {
+  background: rgba(78, 84, 38, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -14px rgba(78, 84, 38, 0.6);
+}
+
+.review-shell .r-btn-ghost {
+  background: #fff;
+  color: var(--r-ink);
+  border-color: var(--r-line);
+}
+
+.review-shell .r-btn-ghost:hover {
+  border-color: var(--r-deep);
+  color: var(--r-deep);
+  transform: translateY(-2px);
+}
+
+.review-shell .r-pop {
+  animation: scaleIn 0.6s ease-out forwards;
+}

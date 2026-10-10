@@ -56,6 +56,17 @@ export const SITE = {
 } as const;
 
 /**
+ * Review funnel (/review → Google for 4–5 stars, /client-feedback for 1–3).
+ *
+ * Replace GOOGLE_REVIEW_URL with the clinic's "Ask for reviews" link from its
+ * Google Business Profile (https://g.page/r/<id>/review). Until then, 4–5 star
+ * ratings fall back to the clinic's Google Maps listing.
+ */
+export const GOOGLE_REVIEW_URL = 'REPLACE_WITH_GOOGLE_REVIEW_LINK';
+export const GOOGLE_REVIEW_FALLBACK_URL = SITE.mapUrl;
+export const REVIEW_LINK_IS_PLACEHOLDER = GOOGLE_REVIEW_URL.includes('REPLACE_WITH');
+
+/**
  * Brand palette — mirrors the CSS variables declared in app/globals.css.
  *
  * Two brand colours on white: every surface is either white or brand olive.
