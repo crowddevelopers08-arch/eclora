@@ -653,3 +653,109 @@ body {
 .review-shell .r-pop {
   animation: scaleIn 0.6s ease-out forwards;
 }
+
+/* =============================================
+   HAIR SCAN LP (/hair-scan)
+   ============================================= */
+
+/* Faint grid behind the hero, faded out towards the edges */
+.hs-grid {
+  background-image:
+    linear-gradient(rgba(78, 84, 38, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78, 84, 38, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* Scan line sweeping over the hero image */
+@keyframes hs-scan {
+  0%   { top: 6%;  opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 92%; opacity: 0; }
+}
+
+.hs-scanline {
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, #E3CC9D 20%, #FFFFFF 50%, #E3CC9D 80%, transparent);
+  box-shadow: 0 0 18px 4px rgba(227, 204, 157, 0.65);
+  animation: hs-scan 3.2s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-scanline { animation: none; top: 50%; }
+}
+
+/* Grid overlay on the dark photo while a scan is saving */
+.hs-grid-dark {
+  background-image:
+    linear-gradient(rgba(227, 204, 157, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(227, 204, 157, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Question / step transitions inside the scan overlay */
+@keyframes hs-in {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hs-in-back {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: none; }
+}
+.hs-step-in      { animation: hs-in 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.hs-step-in-back { animation: hs-in-back 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-step-in, .hs-step-in-back { animation: none; }
+}
+
+/* Hero before → after reveal (HairRevealArt), one 8s loop:
+   hold "before" → scan sweeps down over it → sweeps back up unclipping
+   "after" from the bottom (hair appears last) → hold → fade back.
+   The line's `top` and the reveal's top inset move together (both linear). */
+@keyframes hs-reveal {
+  0%, 40%   { clip-path: inset(100% 0 0 0); opacity: 1; }
+  65%       { clip-path: inset(0 0 0 0);    opacity: 1; }
+  88%       { clip-path: inset(0 0 0 0);    opacity: 1; }
+  96%       { clip-path: inset(0 0 0 0);    opacity: 0; }
+  97%, 100% { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
+@keyframes hs-reveal-line {
+  0%, 6%    { top: 0%;   opacity: 0; }
+  9%        { top: 0%;   opacity: 1; }
+  40%       { top: 100%; opacity: 1; }
+  65%       { top: 0%;   opacity: 1; }
+  69%, 100% { top: 0%;   opacity: 0; }
+}
+@keyframes hs-status-a {
+  0%, 63%   { opacity: 1; }
+  67%, 92%  { opacity: 0; }
+  97%, 100% { opacity: 1; }
+}
+@keyframes hs-status-b {
+  0%, 63%   { opacity: 0; }
+  67%, 92%  { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+.hs-reveal      { animation: hs-reveal 8s linear infinite; }
+.hs-reveal-line {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, #E3CC9D 20%, #FFFFFF 50%, #E3CC9D 80%, transparent);
+  box-shadow: 0 0 22px 6px rgba(227, 204, 157, 0.75);
+  animation: hs-reveal-line 8s linear infinite;
+}
+.hs-status-a { animation: hs-status-a 8s linear infinite; }
+.hs-status-b { animation: hs-status-b 8s linear infinite; }
+
+/* Reduced motion: show the "after" figure, no sweep. */
+@media (prefers-reduced-motion: reduce) {
+  .hs-reveal { animation: none; clip-path: none; opacity: 1; }
+  .hs-reveal-line { animation: none; opacity: 0; }
+  .hs-status-a { animation: none; opacity: 0; }
+  .hs-status-b { animation: none; opacity: 1; }
+}

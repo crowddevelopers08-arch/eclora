@@ -9,6 +9,13 @@
    2. "Client Feedback"  <- app/api/feedback/route.ts  (1-3 star ratings from /review)
         { type: 'feedback', timestamp, name, email, phone, rating, suggestions, source }
 
+   3. "Hair Scan Leads"  <- app/api/hair-scan/route.ts (/hair-scan quiz + photos)
+        { type: 'hairscan', timestamp, name, phone, age, gender, concern, stage,
+          lifestyle, source, photos: [{ view, label, base64 }] }
+        Photos are saved as JPEGs in the Drive folder "Eclora Hair Scan Photos"
+        and the row links to them. Needs Drive permission: after pasting
+        this version, run `setupSheets` once and approve the new prompt.
+
    Rows are written by header name instead of fixed column position so a
    tab can tolerate extra manual columns without breaking submissions.
 
@@ -33,6 +40,16 @@ var FEEDBACK_TAB = 'Client Feedback';
 var FEEDBACK_HEADER_COLOR = '#8A6A2E';
 var FEEDBACK_HEADERS = ['Timestamp', 'Name', 'Email', 'Phone', 'Rating', 'Suggestions', 'Source', 'Status'];
 var FEEDBACK_WIDTHS = [170, 170, 220, 130, 90, 380, 260, 120];
+
+/* ---------- Hair scan (/hair-scan) ---------- */
+var HAIRSCAN_TAB = 'Hair Scan Leads';
+var HAIRSCAN_HEADER_COLOR = '#333719';
+var HAIRSCAN_HEADERS = ['Timestamp', 'Name', 'Phone', 'Age Group', 'Gender', 'Primary Concern', 'Hair Stage', 'Lifestyle', 'Front Hairline Photo', 'Top of the Head Photo', 'Source', 'Status'];
+var HAIRSCAN_WIDTHS = [170, 170, 130, 110, 120, 200, 260, 160, 260, 260, 260, 120];
+/** Drive folder holding every scan photo (created on first use, private to the deploying account). */
+var HAIRSCAN_FOLDER = 'Eclora Hair Scan Photos';
+/** Photo view id -> sheet column. Must match PHOTO_VIEWS in lib/hairScan.ts. */
+var HAIRSCAN_PHOTO_COLUMNS = { front: 'Front Hairline Photo', crown: 'Top of the Head Photo' };
 
 /**
  * Comma-separated addresses that get an email for every new feedback entry,
@@ -61,6 +78,17 @@ function doPost(e) {
     return _json({ error: 'Invalid JSON body' });
   }
 
+  // Hair scan photos go to Drive before the sheet lock: uploads take a few
+  // seconds and don't need to block other submissions.
+  var photoLinks = {};
+  if (data.type === 'hairscan') {
+    try {
+      photoLinks = saveHairScanPhotos(data);
+    } catch (err) {
+      return _json({ error: 'Photo upload failed: ' + err });
+    }
+  }
+
   // Two submissions landing together would otherwise compute the same
   // "next row" and style each other's rows.
   var lock = LockService.getScriptLock();
@@ -80,6 +108,12 @@ function doPost(e) {
       lock.releaseLock();
       _notifyFeedback(data, ts);
       return _json({ success: true, tab: FEEDBACK_TAB, row: fbRow });
+    }
+
+    if (data.type === 'hairscan') {
+      var hsRow = appendHairScanRow(getOrCreateHairScanSheet(ss), data, ts, photoLinks);
+      SpreadsheetApp.flush();
+      return _json({ success: true, tab: HAIRSCAN_TAB, row: hsRow, photoLinks: photoLinks });
     }
 
     // Every lead goes to the one leads tab, whatever sheetTab the caller sent.
@@ -111,6 +145,10 @@ function setupSheets() {
   Logger.log((ss.getSheetByName(FEEDBACK_TAB) ? 'OK: ' : 'Created: ') + FEEDBACK_TAB);
   getOrCreateFeedbackSheet(ss);
 
+  Logger.log((ss.getSheetByName(HAIRSCAN_TAB) ? 'OK: ' : 'Created: ') + HAIRSCAN_TAB);
+  getOrCreateHairScanSheet(ss);
+  Logger.log('Photo folder: ' + _getOrCreateFolder(HAIRSCAN_FOLDER).getUrl());
+
   Logger.log('setupSheets complete.');
 }
 
@@ -137,6 +175,102 @@ function testLead() {
     source: 'Apps Script testLead()'
   }) } });
   Logger.log(res.getContent());
+}
+
+function testHairScan() {
+  // 1x1 white JPEG
+  var tiny = '/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=';
+  var res = doPost({ postData: { contents: JSON.stringify({
+    type: 'hairscan',
+    name: 'Test Scan',
+    phone: '9876543210',
+    age: '26 – 35',
+    gender: 'Male',
+    concern: 'Hair Thinning',
+    stage: 'Stage 2 – Slight recession at the temples',
+    lifestyle: 'High Stress',
+    source: 'Apps Script testHairScan() - TEST ROW, safe to delete',
+    photos: [{ view: 'front', label: 'Front hairline', base64: tiny }]
+  }) } });
+  Logger.log(res.getContent());
+}
+
+/* ============================================================
+   HAIR SCAN
+   ============================================================ */
+
+function getOrCreateHairScanSheet(ss) {
+  var sheet = ss.getSheetByName(HAIRSCAN_TAB);
+  if (sheet) return sheet;
+
+  sheet = ss.insertSheet(HAIRSCAN_TAB);
+  _initSheet(sheet, HAIRSCAN_HEADERS, HAIRSCAN_WIDTHS, HAIRSCAN_HEADER_COLOR);
+
+  var statusCol = HAIRSCAN_HEADERS.indexOf('Status') + 1;
+  var rule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(['New', 'Contacted', 'Consultation Booked', 'Not Interested'], true)
+    .setAllowInvalid(false)
+    .build();
+  sheet.getRange(2, statusCol, sheet.getMaxRows() - 1, 1).setDataValidation(rule);
+  return sheet;
+}
+
+/**
+ * Writes each photo into HAIRSCAN_FOLDER/<yyyy-MM>/ and returns
+ * { viewId: fileUrl }. Files stay private to the deploying account; share
+ * the folder with the team that follows up on these leads.
+ */
+function saveHairScanPhotos(data) {
+  var photos = data.photos || [];
+  if (!photos.length) return {};
+
+  var month = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM');
+  var root = _getOrCreateFolder(HAIRSCAN_FOLDER);
+  var it = root.getFoldersByName(month);
+  var folder = it.hasNext() ? it.next() : root.createFolder(month);
+
+  var stamp = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd_HHmmss');
+  var who = String(data.name || 'client').replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+  var phone = String(data.phone || '').replace(/\D/g, '');
+
+  var links = {};
+  photos.forEach(function (p) {
+    if (!p || !p.base64 || !HAIRSCAN_PHOTO_COLUMNS[p.view]) return;
+    var bytes = Utilities.base64Decode(p.base64);
+    var blob = Utilities.newBlob(bytes, 'image/jpeg', stamp + '_' + who + '_' + phone + '_' + p.view + '.jpg');
+    var file = folder.createFile(blob);
+    file.setDescription('Hair scan - ' + (p.label || p.view) + ' - ' + (data.name || '') + ' ' + phone);
+    links[p.view] = file.getUrl();
+  });
+  return links;
+}
+
+function appendHairScanRow(sheet, data, ts, photoLinks) {
+  var values = {
+    'Timestamp': ts,
+    'Name': data.name,
+    'Phone': data.phone,
+    'Age Group': data.age,
+    'Gender': data.gender,
+    'Primary Concern': data.concern,
+    'Hair Stage': data.stage,
+    'Lifestyle': data.lifestyle,
+    'Source': data.source,
+    'Status': 'New'
+  };
+  Object.keys(HAIRSCAN_PHOTO_COLUMNS).forEach(function (view) {
+    values[HAIRSCAN_PHOTO_COLUMNS[view]] = photoLinks[view] || 'Not provided';
+  });
+
+  var result = _appendByHeaders(sheet, values, HAIRSCAN_HEADERS, HAIRSCAN_HEADER_COLOR, { textColumns: ['Phone'] });
+  styleRow(sheet, result.row, result.headers.length);
+  _centerColumns(sheet, result.headers, result.row, ['Phone', 'Age Group', 'Status']);
+  return result.row;
+}
+
+function _getOrCreateFolder(name) {
+  var it = DriveApp.getFoldersByName(name);
+  return it.hasNext() ? it.next() : DriveApp.createFolder(name);
 }
 
 /* ============================================================
