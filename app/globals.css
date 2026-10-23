@@ -749,13 +749,24 @@ body {
   box-shadow: 0 0 22px 6px rgba(227, 204, 157, 0.75);
   animation: hs-reveal-line 8s linear infinite;
 }
+/* Hero scan: line sweeps down and back up forever, image never changes */
+@keyframes hs-hero-scan {
+  0%, 100% { top: 0%; }
+  50%      { top: 100%; }
+}
+.hs-hero-scan {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, #E3CC9D 20%, #FFFFFF 50%, #E3CC9D 80%, transparent);
+  box-shadow: 0 0 22px 6px rgba(227, 204, 157, 0.75);
+  animation: hs-hero-scan 6s ease-in-out infinite;
+}
+/* Second photo is shown above the line: going down it takes over, going up it hands back */
+@keyframes hs-loop-reveal {
+  0%, 100% { clip-path: inset(0 0 100% 0); }
+  50%      { clip-path: inset(0 0 0% 0); }
+}
+.hs-loop-reveal { animation: hs-loop-reveal 6s ease-in-out infinite; }
 .hs-status-a { animation: hs-status-a 8s linear infinite; }
 .hs-status-b { animation: hs-status-b 8s linear infinite; }
 
-/* Reduced motion: show the "after" figure, no sweep. */
-@media (prefers-reduced-motion: reduce) {
-  .hs-reveal { animation: none; clip-path: none; opacity: 1; }
-  .hs-reveal-line { animation: none; opacity: 0; }
-  .hs-status-a { animation: none; opacity: 0; }
-  .hs-status-b { animation: none; opacity: 1; }
-}

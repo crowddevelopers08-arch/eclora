@@ -94,7 +94,6 @@ function Eyebrow({ index, children, light = false }: { index: string; children: 
         light ? 'text-[#E3CC9D]' : 'text-[#4E5426]'
       }`}
     >
-      <span className={`h-px w-8 ${light ? 'bg-[#E3CC9D]/60' : 'bg-[#4E5426]/40'}`} />
       {index} · {children}
     </span>
   );
@@ -164,7 +163,6 @@ function Hero() {
             Eclora Aesthetics, A Clinic That Understands Your{' '}
             <span className="relative whitespace-nowrap text-[#4E5426]">
               Skin &amp; Hair
-              <span className="absolute inset-x-0 -bottom-1 h-[6px] rounded-full bg-[#E3CC9D]/70" aria-hidden="true" />
             </span>{' '}
             Concerns
           </h1>
@@ -201,27 +199,6 @@ function Hero() {
             )}
           </div>
 
-          {/* Floating chips */}
-          <div className="absolute -left-3 top-10 flex items-center gap-2 rounded-2xl border border-[#E3CC9D] bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:-left-8">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4E5426] text-[#E3CC9D]">
-              <Icon name="person_check" className="text-[20px]" />
-            </span>
-            <span className="font-label text-[13px] font-semibold leading-tight text-[#1E2115]">
-              Personalised
-              <br />
-              Hair Care
-            </span>
-          </div>
-          <div className="absolute -right-3 bottom-12 flex items-center gap-2 rounded-2xl border border-[#E3CC9D] bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:-right-8">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#E3CC9D]/40 text-[#4E5426]">
-              <Icon name="biotech" className="text-[20px]" />
-            </span>
-            <span className="font-label text-[13px] font-semibold leading-tight text-[#1E2115]">
-              PRP &amp; GFC
-              <br />
-              Treatments
-            </span>
-          </div>
         </div>
       </div>
     </section>

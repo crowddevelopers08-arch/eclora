@@ -112,23 +112,19 @@ export function HairRevealArt() {
       <div className="absolute inset-0">
         <Photo src="/hair-scan/download-1.png" />
       </div>
-      <div className="hs-reveal absolute inset-0">
-        <Photo src="/hair-scan/download-2.png" />
+      <div className="hs-loop-reveal absolute inset-0">
+        <Photo src="/hair-scan/download-3.png" />
       </div>
 
-      {/* Scan line, in step with the reveal */}
-      <div className="hs-reveal-line pointer-events-none absolute inset-x-5" aria-hidden="true" />
+      {/* Scan line: down swaps to the second photo, up swaps back */}
+      <div className="hs-hero-scan pointer-events-none absolute inset-x-5" aria-hidden="true" />
 
       {/* Status chip */}
       <div className="absolute inset-x-0 bottom-6 flex justify-center">
         <span className="relative inline-flex h-9 min-w-[170px] items-center justify-center rounded-full bg-[#1E2115]/80 px-4 font-label text-[12px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
-          <span className="hs-status-a absolute inset-0 flex items-center justify-center gap-2">
+          <span className="absolute inset-0 flex items-center justify-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#E3CC9D]" />
             Scanning…
-          </span>
-          <span className="hs-status-b absolute inset-0 flex items-center justify-center gap-2 text-[#E3CC9D]">
-            <span className="material-symbols-outlined text-[16px]">check_circle</span>
-            Healthier Hair
           </span>
         </span>
       </div>
