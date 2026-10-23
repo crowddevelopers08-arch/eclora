@@ -99,14 +99,21 @@ function Figure({ id, hair }: { id: string; hair: 'before' | 'after' }) {
   );
 }
 
+function Photo({ src }: { src: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" className="h-full w-full object-cover object-top" draggable={false} aria-hidden="true" />
+  );
+}
+
 export function HairRevealArt() {
   return (
     <div className="relative h-full w-full">
       <div className="absolute inset-0">
-        <Figure id="hr-before" hair="before" />
+        <Photo src="/hair-scan/download-1.png" />
       </div>
       <div className="hs-reveal absolute inset-0">
-        <Figure id="hr-after" hair="after" />
+        <Photo src="/hair-scan/download-2.png" />
       </div>
 
       {/* Scan line, in step with the reveal */}
