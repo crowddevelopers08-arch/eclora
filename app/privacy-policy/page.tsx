@@ -8,6 +8,10 @@ export const metadata = {
     'Learn how Eclora Aesthetics collects, uses, and protects your personal information.',
 };
 
+const Lastdate = () =>{
+  return new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',dateStyle:'long'}).format(new Date());
+}
+
 export default function PrivacyPolicyPage() {
   return (
     <main className="flex min-h-screen flex-col overflow-x-hidden bg-white">
@@ -45,7 +49,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="mt-2 font-body text-[15px] leading-[1.6] text-white/55 sm:text-[16px]">
-            Last updated: 24 August 2026
+            Last updated: {Lastdate()}
           </p>
         </div>
       </div>

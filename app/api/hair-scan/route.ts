@@ -1,10 +1,10 @@
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-/* Drive uploads in Apps Script take a few seconds per photo. */
 export const maxDuration = 30;
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sendToTeleCRM } from '@/lib/telecrm';
+import { prisma } from '@/lib/prisma';
 import {
   MAX_PHOTO_DATA_URL_LENGTH,
   PHOTO_VIEWS,
@@ -19,48 +19,6 @@ const SOURCE = 'Eclora Aesthetics — Hair Scan LP';
 const TELECRM_PAGE = 'eclora-hair-scan';
 
 const JPEG_PREFIX = 'data:image/jpeg;base64,';
-
-type PhotoLinks = Record<string, string>;
-
-/** Saves the row in the "Hair Scan Leads" tab and the photos in Drive. */
-async function saveToSheetAndDrive(
-  answers: Required<Pick<ScanAnswers, 'name' | 'phone'>> & ScanAnswers,
-  photos: { view: string; label: string; base64: string }[],
-  pageUrl: string
-): Promise<PhotoLinks> {
-  const endpoint = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
-  if (!endpoint) throw new Error('GOOGLE_SHEETS_WEBHOOK_URL is not set');
-
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      type: 'hairscan',
-      timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-      name: answers.name.trim(),
-      phone: cleanPhone(answers.phone),
-      age: optionLabel('age', answers.age),
-      gender: optionLabel('gender', answers.gender),
-      concern: optionLabel('concern', answers.concern),
-      stage: optionLabel('stage', answers.stage),
-      lifestyle: optionLabel('lifestyle', answers.lifestyle),
-      source: pageUrl || SOURCE,
-      photos,
-    }),
-    cache: 'no-store',
-  });
-
-  const text = await res.text();
-  if (!res.ok) throw new Error(text || `Google Sheets responded with ${res.status}`);
-  let json: { error?: string; photoLinks?: PhotoLinks } = {};
-  try {
-    json = text ? JSON.parse(text) : {};
-  } catch {
-    throw new Error('Apps Script returned a non-JSON response');
-  }
-  if (json.error) throw new Error(json.error);
-  return json.photoLinks ?? {};
-}
 
 export async function POST(req: NextRequest) {
   let body: { answers?: ScanAnswers; photos?: Record<string, unknown>; pageUrl?: string };
@@ -106,46 +64,78 @@ export async function POST(req: NextRequest) {
   const pageUrl = typeof body.pageUrl === 'string' ? body.pageUrl.slice(0, 500) : '';
   const lead = answers as Required<Pick<ScanAnswers, 'name' | 'phone'>> & ScanAnswers;
 
-  /* Drive + Sheet first, so the CRM note can carry the photo links. */
-  let photoLinks: PhotoLinks = {};
-  let sheetOk = true;
+  /* Database first: Postgres is the source of truth for the admin dashboard. */
+  let leadId: string | null = null;
   try {
-    photoLinks = await saveToSheetAndDrive(lead, photos, pageUrl);
+    const row = await prisma.hairScanLead.create({
+      data: {
+        name: lead.name.trim(),
+        phone: cleanPhone(lead.phone),
+        age: answers.age!,
+        gender: answers.gender!,
+        concern: answers.concern!,
+        stage: answers.stage!,
+        lifestyle: answers.lifestyle!,
+        pageUrl: pageUrl || null,
+        photos: {
+          create: photos.map((p) => ({ view: p.view, data: Buffer.from(p.base64, 'base64') })),
+        },
+      },
+      select: { id: true },
+    });
+    leadId = row.id;
   } catch (err) {
-    sheetOk = false;
-    console.error('[Hair scan → Sheets/Drive] Error:', err instanceof Error ? err.message : err);
+    console.error('[Hair scan → Database] Error:', err instanceof Error ? err.message : err);
   }
+  const dbOk = leadId !== null;
 
-  let crmOk = true;
-  try {
-    await sendToTeleCRM({
+  const concernLabel = optionLabel('concern', answers.concern);
+  const stageLabel = optionLabel('stage', answers.stage);
+  const ageLabel = optionLabel('age', answers.age);
+  const genderLabel = optionLabel('gender', answers.gender);
+  const lifestyleLabel = optionLabel('lifestyle', answers.lifestyle);
+  const phone = cleanPhone(lead.phone);
+
+  /* Database is saved above; the lead is then pushed to TeleCRM (no Google Sheet). */
+  const [crmResult] = await Promise.allSettled([
+    sendToTeleCRM({
       name: lead.name,
       phone: lead.phone,
-      message: `Hair scan - ${optionLabel('concern', answers.concern)} at Eclora Aesthetics`,
+      message: `Hair scan - ${concernLabel} at Eclora Aesthetics`,
       requestType: 'consultation',
       pageName: TELECRM_PAGE,
       notes: [
+        `Form Name: ${TELECRM_PAGE}`,
         `Lead Source: ${SOURCE}`,
         `Live URL: ${pageUrl || 'Not available'}`,
+        `Name: ${lead.name.trim()}`,
+        `Phone: ${phone}`,
         'Treatment Type: Hair Treatments',
-        `Primary Concern: ${optionLabel('concern', answers.concern)}`,
-        `Hair Stage: ${optionLabel('stage', answers.stage)}`,
-        `Age Group: ${optionLabel('age', answers.age)}`,
-        `Gender: ${optionLabel('gender', answers.gender)}`,
-        `Lifestyle: ${optionLabel('lifestyle', answers.lifestyle)}`,
-        ...PHOTO_VIEWS.map((v) => {
-          const sent = photos.some((p) => p.view === v.id);
-          const link = photoLinks[v.id];
-          return `${v.label} Photo: ${link || (sent ? 'Captured (see Hair Scan sheet)' : 'Not provided')}`;
-        }),
+        `Primary Concern: ${concernLabel}`,
+        `Hair Stage: ${stageLabel}`,
+        `Age Group: ${ageLabel}`,
+        `Gender: ${genderLabel}`,
+        `Lifestyle: ${lifestyleLabel}`,
+        `Details: Form Name: ${TELECRM_PAGE} | Source: ${SOURCE} | Name: ${lead.name.trim()} | Phone: ${phone} | Concern: ${concernLabel} | Stage: ${stageLabel} | Age: ${ageLabel} | Gender: ${genderLabel} | Lifestyle: ${lifestyleLabel}`,
       ],
-    });
-  } catch (err) {
-    crmOk = false;
-    console.error('[Hair scan → TeleCRM] Error:', err instanceof Error ? err.message : err);
+    }),
+  ]);
+
+  const crmOk = crmResult.status === 'fulfilled';
+  if (!crmOk) {
+    const r = crmResult.reason;
+    console.error('[Hair scan → TeleCRM] Error:', r instanceof Error ? r.message : r);
   }
 
-  if (!sheetOk && !crmOk) {
+  if (leadId) {
+    try {
+      await prisma.hairScanLead.update({ where: { id: leadId }, data: { crmSynced: crmOk } });
+    } catch (err) {
+      console.error('[Hair scan → Database sync flags] Error:', err instanceof Error ? err.message : err);
+    }
+  }
+
+  if (!dbOk && !crmOk) {
     return NextResponse.json(
       { error: 'We couldn’t save your scan right now. Please try again in a moment.' },
       { status: 502 }
@@ -155,9 +145,9 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       success: true,
-      sheet: sheetOk ? 'ok' : 'failed',
+      db: dbOk ? 'ok' : 'failed',
       crm: crmOk ? 'ok' : 'failed',
-      photos: Object.keys(photoLinks).length,
+      photos: photos.length,
     },
     { status: 201 }
   );

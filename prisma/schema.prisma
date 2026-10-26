@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// One completed /hair-scan submission: quiz answers + contact details.
+model HairScanLead {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  name      String
+  phone     String
+
+  /// Option ids as submitted (see lib/hairScan.ts)
+  age       String
+  gender    String
+  concern   String
+  stage     String
+  lifestyle String
+
+  pageUrl   String?
+
+  /// Delivery state of the other integrations, for troubleshooting.
+  sheetSynced Boolean  @default(false)
+  crmSynced   Boolean  @default(false)
+
+  photos    HairScanPhoto[]
+
+  @@index([createdAt])
+  @@index([phone])
+}
+
+/// A captured scan photo (JPEG bytes stored in Postgres).
+model HairScanPhoto {
+  id        String       @id @default(cuid())
+  createdAt DateTime     @default(now())
+  leadId    String
+  lead      HairScanLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  /// "front" | "crown"
+  view      String
+  mimeType  String       @default("image/jpeg")
+  /// Unguessable key for the public link written into the TeleCRM lead.
+  token     String       @unique @default(dbgenerated("gen_random_uuid()::text"))
+  data      Bytes
+  /// Google Drive link, when the Apps Script backup succeeded.
+  driveUrl  String?
+
+  @@unique([leadId, view])
+}

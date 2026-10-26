@@ -316,10 +316,10 @@ function Benefits() {
             individual needs and guiding you towards suitable treatment options.
           </p>
           <BlobButton
-            href="#consultation"
+            href="#start-scan"
             className="mt-8 gap-2 rounded-full px-6 py-3 font-body text-[16px] font-semibold"
           >
-            Book Your Consultation
+            Start Hair Scan
             <Icon name="arrow_forward" className="text-[18px]" />
           </BlobButton>
         </AnimateOnScroll>
@@ -415,12 +415,6 @@ function FinalCta() {
                 <Icon name="center_focus_strong" className="text-[19px]" />
                 Start Hair Scan
               </BlobButton>
-              <a
-                href="#consultation"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#4E5426]/25 px-6 py-3.5 font-body text-[16px] font-semibold text-[#4E5426] transition-colors hover:border-[#4E5426] hover:bg-[#E3CC9D]/20"
-              >
-                Book Your Consultation
-              </a>
               <CallLink className="py-3.5" />
             </div>
           </div>
@@ -454,7 +448,7 @@ function ScanFooter() {
           <p className="font-body text-[14px] text-[#E3CC9D]/50">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <a href="/privacy-policy" className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 hover:text-[#E3CC9D]">
+          <a href="/hair-scan/privacy-policy" className="font-label text-[13px] font-semibold uppercase tracking-[0.14em] text-[#E3CC9D]/50 hover:text-[#E3CC9D]">
             Privacy Policy
           </a>
         </div>
