@@ -58,7 +58,7 @@ export function PhotoCapture({
   onComplete: (photos: ScanPhotos) => void;
   onBack: () => void;
 }) {
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(true);
   const [viewIndex, setViewIndex] = useState(0);
   const [photos, setPhotos] = useState<ScanPhotos>({});
   const [cam, setCam] = useState<CamState>('idle');
@@ -245,6 +245,18 @@ export function PhotoCapture({
   /* ----------------------------------------------------- capture screen */
   return (
     <div className="mx-auto w-full max-w-[560px] px-4 pb-16 pt-6 sm:px-6 sm:pt-8">
+      <button
+        type="button"
+        onClick={() => {
+          stopCamera();
+          onBack();
+        }}
+        className="mb-4 inline-flex items-center gap-1 font-body text-[14px] font-semibold text-[#5F6352] hover:text-[#4E5426]"
+      >
+        <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+        Back to questions
+      </button>
+
       {/* View tabs */}
       <div className="flex gap-2">
         {PHOTO_VIEWS.map((v, i) => {

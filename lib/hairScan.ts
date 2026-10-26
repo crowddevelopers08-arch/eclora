@@ -29,7 +29,6 @@ export interface ScanAnswers {
   gender?: string;
   concern?: string;
   stage?: string;
-  lifestyle?: string;
 }
 
 export const SCAN_QUESTIONS: ScanQuestion[] = [
@@ -90,19 +89,6 @@ export const SCAN_QUESTIONS: ScanQuestion[] = [
     type: 'stage',
     question: 'Which picture is closest to your hair right now?',
     subtext: 'Pick the one that best matches. It doesn’t have to be exact.',
-  },
-  {
-    id: 'lifestyle',
-    type: 'single',
-    question: 'What best describes your lifestyle?',
-    subtext: 'Stress, diet and sleep are worth discussing with the team.',
-    options: [
-      { id: 'high-stress', label: 'High Stress', description: 'Deadlines, anxiety, pressure', icon: 'psychology' },
-      { id: 'poor-diet', label: 'Irregular Diet', description: 'Junk food, skipping meals', icon: 'restaurant' },
-      { id: 'poor-sleep', label: 'Poor Sleep', description: 'Less than 6 hours a night', icon: 'bedtime' },
-      { id: 'sedentary', label: 'Sedentary', description: 'Little to no exercise', icon: 'chair' },
-      { id: 'healthy', label: 'Fairly Healthy', description: 'Balanced diet and exercise', icon: 'favorite' },
-    ],
   },
 ];
 

@@ -13,8 +13,9 @@ import {
 const TOTAL = SCAN_QUESTIONS.length;
 
 /**
- * One question per screen. Choice questions advance on tap; text inputs and
- * the stage picker use the Continue button (Enter also submits).
+ * One question per screen. Choice questions advance on tap; text inputs
+ * use the Continue button (Enter also submits). The stage picker is the last
+ * question: tapping a stage goes straight to the camera.
  */
 export function ScanQuiz({
   answers,
@@ -168,13 +169,6 @@ export function ScanQuiz({
                         : 'border-[#E3CC9D]/80 bg-white hover:-translate-y-0.5 hover:border-[#4E5426]/50'
                     }`}
                   >
-                    <span
-                      className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-colors ${
-                        selected ? 'bg-white/15 text-[#E3CC9D]' : 'bg-[#E3CC9D]/30 text-[#4E5426]'
-                      }`}
-                    >
-                      <span className="material-symbols-outlined text-[24px]">{opt.icon}</span>
-                    </span>
                     <span className="min-w-0 flex-1">
                       <span className={`block font-heading text-[17px] font-semibold ${selected ? 'text-white' : 'text-[#1E2115]'}`}>
                         {opt.label}
@@ -206,10 +200,7 @@ export function ScanQuiz({
                   <button
                     key={stage.id}
                     type="button"
-                    onClick={() => {
-                      onAnswer(q.id, stage.id);
-                      setError(null);
-                    }}
+                    onClick={() => choose(stage.id)}
                     aria-pressed={selected}
                     className={`relative overflow-hidden rounded-2xl border-2 bg-white p-2.5 text-center transition-all duration-200 ${
                       selected
@@ -247,7 +238,7 @@ export function ScanQuiz({
             </p>
           )}
 
-          {q.type !== 'single' && (
+          {q.type !== 'single' && q.type !== 'stage' && (
             <div className="mt-8 flex justify-end">
               <BlobButton
                 type="button"

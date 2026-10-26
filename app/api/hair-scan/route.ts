@@ -75,7 +75,6 @@ export async function POST(req: NextRequest) {
         gender: answers.gender!,
         concern: answers.concern!,
         stage: answers.stage!,
-        lifestyle: answers.lifestyle!,
         pageUrl: pageUrl || null,
         photos: {
           create: photos.map((p) => ({ view: p.view, data: Buffer.from(p.base64, 'base64') })),
@@ -93,7 +92,6 @@ export async function POST(req: NextRequest) {
   const stageLabel = optionLabel('stage', answers.stage);
   const ageLabel = optionLabel('age', answers.age);
   const genderLabel = optionLabel('gender', answers.gender);
-  const lifestyleLabel = optionLabel('lifestyle', answers.lifestyle);
   const phone = cleanPhone(lead.phone);
 
   /* Database is saved above; the lead is then pushed to TeleCRM (no Google Sheet). */
@@ -115,8 +113,7 @@ export async function POST(req: NextRequest) {
         `Hair Stage: ${stageLabel}`,
         `Age Group: ${ageLabel}`,
         `Gender: ${genderLabel}`,
-        `Lifestyle: ${lifestyleLabel}`,
-        `Details: Form Name: ${TELECRM_PAGE} | Source: ${SOURCE} | Name: ${lead.name.trim()} | Phone: ${phone} | Concern: ${concernLabel} | Stage: ${stageLabel} | Age: ${ageLabel} | Gender: ${genderLabel} | Lifestyle: ${lifestyleLabel}`,
+        `Details: Form Name: ${TELECRM_PAGE} | Source: ${SOURCE} | Name: ${lead.name.trim()} | Phone: ${phone} | Concern: ${concernLabel} | Stage: ${stageLabel} | Age: ${ageLabel} | Gender: ${genderLabel}`,
       ],
     }),
   ]);

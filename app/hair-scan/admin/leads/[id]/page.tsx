@@ -69,7 +69,7 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
               <Field label="Age group" value={optionLabel('age', lead.age)} />
               <Field label="Gender" value={optionLabel('gender', lead.gender)} />
               <Field label="Primary concern" value={optionLabel('concern', lead.concern)} />
-              <Field label="Lifestyle" value={optionLabel('lifestyle', lead.lifestyle)} />
+              {lead.lifestyle && <Field label="Lifestyle" value={optionLabel('lifestyle' as never, lead.lifestyle)} />}
               <Field
                 label="Hair stage"
                 value={

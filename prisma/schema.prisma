@@ -21,7 +21,8 @@ model HairScanLead {
   gender    String
   concern   String
   stage     String
-  lifestyle String
+  /// No longer asked in the quiz; kept for older leads.
+  lifestyle String?
 
   pageUrl   String?
 

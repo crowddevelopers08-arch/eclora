@@ -54,7 +54,6 @@ export function ScanResult({
     ['Primary concern', optionLabel('concern', answers.concern)],
     ['Age group', optionLabel('age', answers.age)],
     ['Gender', optionLabel('gender', answers.gender)],
-    ['Lifestyle', optionLabel('lifestyle', answers.lifestyle)],
   ];
 
   const whatsappText = encodeURIComponent(

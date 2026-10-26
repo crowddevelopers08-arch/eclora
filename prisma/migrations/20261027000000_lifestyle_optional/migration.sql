@@ -1,0 +1,1 @@
+ALTER TABLE "HairScanLead" ALTER COLUMN "lifestyle" DROP NOT NULL;
