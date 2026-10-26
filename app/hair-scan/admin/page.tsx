@@ -5,12 +5,13 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { SITE } from '@/lib/site';
 import { HAIR_STAGES, SCAN_QUESTIONS, optionLabel } from '@/lib/hairScan';
+import { RefreshButton } from './RefreshButton';
 import { formatDate } from './ui';
 
 const PAGE_SIZE = 15;
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 
-type SearchParams = { q?: string; concern?: string; gender?: string; page?: string };
+type SearchParams = { q?: string; concern?: string; gender?: string; range?: string; photo?: string; page?: string };
 
 /** Midnight (IST) `daysAgo` days back, as a UTC Date. */
 function istDayStart(daysAgo = 0): Date {
@@ -27,9 +28,29 @@ function href(params: SearchParams, patch: Partial<SearchParams>) {
   return s ? `/hair-scan/admin?${s}` : '/hair-scan/admin';
 }
 
-function StatCard({ label, value, hint, icon }: { label: string; value: number | string; hint?: string; icon: string }) {
+function StatCard({
+  label,
+  value,
+  hint,
+  icon,
+  href,
+  active,
+}: {
+  label: string;
+  value: number | string;
+  hint?: string;
+  icon: string;
+  href: string;
+  active: boolean;
+}) {
   return (
-    <div className="rounded-2xl border border-[#E3CC9D]/70 bg-white p-5 shadow-sm">
+    <Link
+      href={href}
+      aria-current={active ? 'true' : undefined}
+      className={`block rounded-2xl border bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#4E5426]/50 ${
+        active ? 'border-[#4E5426] ring-2 ring-[#4E5426]/20' : 'border-[#E3CC9D]/70'
+      }`}
+    >
       <div className="flex items-center justify-between">
         <span className="font-label text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A8D80]">{label}</span>
         <span className="material-symbols-outlined flex h-9 w-9 items-center justify-center rounded-xl bg-[#4E5426]/10 text-[20px] text-[#4E5426]">
@@ -38,7 +59,7 @@ function StatCard({ label, value, hint, icon }: { label: string; value: number |
       </div>
       <p className="mt-3 font-heading text-[34px] font-bold leading-none">{value}</p>
       {hint && <p className="mt-2 text-[13px] text-[#5F6352]">{hint}</p>}
-    </div>
+    </Link>
   );
 }
 
@@ -47,11 +68,15 @@ export default async function AdminDashboard({ searchParams }: { searchParams: P
   const q = (sp.q ?? '').trim();
   const concern = sp.concern ?? '';
   const gender = sp.gender ?? '';
+  const range = sp.range === 'today' || sp.range === '7d' ? sp.range : '';
+  const photo = sp.photo === 'crown' ? 'crown' : '';
   const page = Math.max(1, Number.parseInt(sp.page ?? '1', 10) || 1);
 
   const where: Prisma.HairScanLeadWhereInput = {
     ...(concern && { concern }),
     ...(gender && { gender }),
+    ...(range && { createdAt: { gte: istDayStart(range === 'today' ? 0 : 6) } }),
+    ...(photo && { photos: { some: { view: photo } } }),
     ...(q && { OR: [{ name: { contains: q, mode: 'insensitive' } }, { phone: { contains: q.replace(/\D/g, '') || q } }] }),
   };
 
@@ -100,6 +125,7 @@ export default async function AdminDashboard({ searchParams }: { searchParams: P
               Hair Scan Admin
             </span>
           </div>
+          <RefreshButton />
         </div>
       </header>
 
@@ -111,14 +137,16 @@ export default async function AdminDashboard({ searchParams }: { searchParams: P
 
         {/* Stats */}
         <section className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <StatCard label="Total scans" value={total} icon="groups" />
-          <StatCard label="Today" value={today} icon="today" />
-          <StatCard label="Last 7 days" value={week} icon="date_range" />
+          <StatCard label="Total scans" value={total} icon="groups" href="/hair-scan/admin" active={!range && !photo} />
+          <StatCard label="Today" value={today} icon="today" href="/hair-scan/admin?range=today" active={range === 'today'} />
+          <StatCard label="Last 7 days" value={week} icon="date_range" href="/hair-scan/admin?range=7d" active={range === '7d'} />
           <StatCard
             label="With crown photo"
             value={withCrown}
             hint={total ? `${Math.round((withCrown / total) * 100)}% of scans` : undefined}
             icon="photo_camera"
+            href="/hair-scan/admin?photo=crown"
+            active={photo === 'crown'}
           />
         </section>
 
@@ -162,6 +190,8 @@ export default async function AdminDashboard({ searchParams }: { searchParams: P
 
         {/* Filters */}
         <form method="get" className="mt-8 flex flex-wrap items-end gap-3">
+          {range && <input type="hidden" name="range" value={range} />}
+          {photo && <input type="hidden" name="photo" value={photo} />}
           <label className="grid flex-1 gap-1 sm:max-w-[320px]">
             <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#8A8D80]">Search</span>
             <input
@@ -204,7 +234,7 @@ export default async function AdminDashboard({ searchParams }: { searchParams: P
           <button className="h-11 rounded-xl bg-[#4E5426] px-6 text-[15px] font-semibold text-white transition hover:bg-[#3F451F]">
             Filter
           </button>
-          {(q || concern || gender) && (
+          {(q || concern || gender || range || photo) && (
             <Link href="/hair-scan/admin" className="h-11 content-center px-2 text-[14px] font-semibold text-[#4E5426] underline">
               Clear
             </Link>
