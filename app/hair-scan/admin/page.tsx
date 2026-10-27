@@ -53,8 +53,8 @@ function StatCard({
     >
       <div className="flex items-center justify-between">
         <span className="font-label text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A8D80]">{label}</span>
-        <span className="material-symbols-outlined flex h-9 w-9 items-center justify-center rounded-xl bg-[#4E5426]/10 text-[20px] text-[#4E5426]">
-          {icon}
+        <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[#4E5426]/10 text-[#4E5426]">
+          <span className="material-symbols-outlined text-[20px] leading-none">{icon}</span>
         </span>
       </div>
       <p className="mt-3 font-heading text-[34px] font-bold leading-none">{value}</p>
