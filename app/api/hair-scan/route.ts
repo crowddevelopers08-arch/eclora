@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
   const dbOk = leadId !== null;
 
   const concernLabel = optionLabel('concern', answers.concern);
-  const stageLabel = optionLabel('stage', answers.stage);
+  const stageLabel = optionLabel('stage', answers.stage, answers.gender);
   const ageLabel = optionLabel('age', answers.age);
   const genderLabel = optionLabel('gender', answers.gender);
   const phone = cleanPhone(lead.phone);

@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import { HAIR_STAGES, PHOTO_VIEWS, optionLabel, stageImage } from '@/lib/hairScan';
+import { PHOTO_VIEWS, findStage, optionLabel, stageImage } from '@/lib/hairScan';
 import { formatDate } from '../../ui';
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
@@ -36,7 +36,7 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
   });
   if (!lead) notFound();
 
-  const stage = HAIR_STAGES.find((s) => s.id === lead.stage);
+  const stage = findStage(lead.stage, lead.gender);
 
   return (
     <main className="mx-auto max-w-[1100px] px-4 py-8 sm:px-6">
@@ -75,7 +75,7 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
                 value={
                   <span className="flex items-center gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={stageImage(lead.stage)} alt="" className="h-14 w-14 rounded-lg border border-[#E3CC9D] object-cover" />
+                    <img src={stageImage(lead.stage, lead.gender)} alt="" className="h-14 w-14 rounded-lg border border-[#E3CC9D] object-cover" />
                     <span>
                       {stage?.label ?? lead.stage}
                       {stage && <span className="block text-[13px] font-normal text-[#5F6352]">{stage.description}</span>}

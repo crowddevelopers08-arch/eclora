@@ -100,7 +100,23 @@ export const HAIR_STAGES = [
   { id: 'st5', label: 'Stage 5', description: 'Extensive hair loss' },
 ] as const;
 
-export const stageImage = (id: string) => `/hair-scan/stages/${id}.jpeg`;
+/** Female pattern hair loss progresses as a widening centre part (Ludwig-style), not a receding hairline. */
+export const FEMALE_HAIR_STAGES = [
+  { id: 'st1', label: 'Stage 1', description: 'No visible hair loss' },
+  { id: 'st2', label: 'Stage 2', description: 'Slight widening of the part' },
+  { id: 'st3', label: 'Stage 3', description: 'Noticeably wider part' },
+  { id: 'st4', label: 'Stage 4', description: 'Thinning spreading across the crown' },
+  { id: 'st5', label: 'Stage 5', description: 'Extensive thinning on top' },
+] as const;
+
+const isFemale = (gender?: string | null) => gender === 'female';
+
+export const stagesFor = (gender?: string | null) => (isFemale(gender) ? FEMALE_HAIR_STAGES : HAIR_STAGES);
+
+export const findStage = (id?: string | null, gender?: string | null) => stagesFor(gender).find((s) => s.id === id);
+
+export const stageImage = (id: string, gender?: string | null) =>
+  isFemale(gender) ? `/hair-scan/stages/female/${id}.svg` : `/hair-scan/stages/${id}.jpeg`;
 
 /** Photos captured in the camera step. `required: false` can be skipped. */
 export const PHOTO_VIEWS = [
@@ -132,10 +148,11 @@ export interface HairScanPayload {
 
 /* ---------------------------------------------------------- labels */
 
-export function optionLabel(questionId: keyof ScanAnswers, value?: string): string {
+/** `gender` picks the matching stage descriptions when labelling a stage. */
+export function optionLabel(questionId: keyof ScanAnswers, value?: string, gender?: string | null): string {
   if (!value) return 'Not specified';
   if (questionId === 'stage') {
-    const s = HAIR_STAGES.find((x) => x.id === value);
+    const s = findStage(value, gender);
     return s ? `${s.label} – ${s.description}` : value;
   }
   const q = SCAN_QUESTIONS.find((x) => x.id === questionId);

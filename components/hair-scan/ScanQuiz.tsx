@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { BlobButton } from '@/components/BlobButton';
 import {
-  HAIR_STAGES,
   SCAN_QUESTIONS,
   stageImage,
+  stagesFor,
   validateAnswer,
   type ScanAnswers,
 } from '@/lib/hairScan';
@@ -194,7 +194,7 @@ export function ScanQuiz({
 
           {q.type === 'stage' && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {HAIR_STAGES.map((stage) => {
+              {stagesFor(answers.gender).map((stage) => {
                 const selected = value === stage.id;
                 return (
                   <button
@@ -215,7 +215,7 @@ export function ScanQuiz({
                     )}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={stageImage(stage.id)}
+                      src={stageImage(stage.id, answers.gender)}
                       alt={`${stage.label}: ${stage.description}`}
                       className="aspect-[4/3] w-full rounded-xl object-cover"
                     />

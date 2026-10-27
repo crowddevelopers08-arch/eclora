@@ -3,8 +3,8 @@
 import { BlobButton } from '@/components/BlobButton';
 import { SITE } from '@/lib/site';
 import {
-  HAIR_STAGES,
   PHOTO_VIEWS,
+  findStage,
   optionLabel,
   stageImage,
   type PhotoViewId,
@@ -47,7 +47,7 @@ export function ScanResult({
   onClose: () => void;
 }) {
   const firstName = answers.name?.trim().split(/\s+/)[0] || 'Your';
-  const stage = HAIR_STAGES.find((s) => s.id === answers.stage);
+  const stage = findStage(answers.stage, answers.gender);
   const captured = PHOTO_VIEWS.filter((v) => photos[v.id as PhotoViewId]);
 
   const rows: [string, string][] = [
@@ -120,7 +120,7 @@ export function ScanResult({
                 </h2>
                 <div className="mt-4 rounded-2xl border border-[#E3CC9D] p-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={stageImage(stage.id)} alt={stage.label} className="aspect-[4/3] w-full rounded-xl object-cover" />
+                  <img src={stageImage(stage.id, answers.gender)} alt={stage.label} className="aspect-[4/3] w-full rounded-xl object-cover" />
                   <p className="mt-2 font-heading text-[16px] font-semibold text-[#1E2115]">{stage.label}</p>
                   <p className="font-body text-[13.5px] text-[#5F6352]">{stage.description}</p>
                 </div>
