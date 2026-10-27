@@ -31,6 +31,14 @@ const DEFAULT_ROUTE: LeadRouteConfig = {
   treatmentType: 'Aesthetic Treatments',
 };
 
+/** Paid funnel (/skin-hair-consultation/checkout): TeleCRM only, no Google Sheet. */
+const PAID_LP_ROUTE: LeadRouteConfig = {
+  source: 'Eclora Paid LP – Skin & Hair Consultation',
+  sheetTab: '',
+  telecrmPageName: DEFAULT_ROUTE.telecrmPageName,
+  treatmentType: 'Skin & Hair Consultation',
+};
+
 function isValidIndianPhone(raw: string) {
   const cleaned = raw.replace(/[\s\-()]/g, '').replace(/^\+91/, '');
   return /^[6-9]\d{9}$/.test(cleaned);
@@ -109,7 +117,10 @@ export async function POST(req: NextRequest) {
     location = '',
     healthGoal = '',
     pageUrl = '',
+    funnel = '',
   } = body;
+
+  const isPaidFunnel = funnel === 'paid-lp';
 
   if (!name.trim()) {
     return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });
@@ -134,7 +145,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
 
-  const routeConfig: LeadRouteConfig = DEFAULT_ROUTE;
+  const routeConfig: LeadRouteConfig = isPaidFunnel ? PAID_LP_ROUTE : DEFAULT_ROUTE;
 
   const leadData: LeadInput = {
     name,
@@ -150,7 +161,7 @@ export async function POST(req: NextRequest) {
   };
 
   const [sheetResult, crmResult] = await Promise.allSettled([
-    appendToGoogleSheet(leadData),
+    isPaidFunnel ? Promise.resolve(null) : appendToGoogleSheet(leadData),
     sendLeadToTeleCRM(leadData),
   ]);
 
@@ -164,7 +175,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       success: true,
-      sheet: sheetResult.status === 'fulfilled' ? 'ok' : 'failed',
+      sheet: isPaidFunnel ? 'skipped' : sheetResult.status === 'fulfilled' ? 'ok' : 'failed',
       crm: crmResult.status === 'fulfilled' ? 'ok' : 'failed',
       route: routeConfig.sheetTab,
       timestamp: new Date().toISOString(),

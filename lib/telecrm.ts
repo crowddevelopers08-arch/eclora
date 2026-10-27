@@ -15,8 +15,8 @@ export interface TeleCRMLead {
   email?: string;
   /** Short summary shown in the lead's message field. */
   message: string;
-  /** 'consultation' for enquiries, 'feedback' for client feedback. */
-  requestType: 'consultation' | 'feedback';
+  /** 'consultation' for enquiries, 'feedback' for client feedback, 'consultation-payment' for Razorpay events. */
+  requestType: 'consultation' | 'feedback' | 'consultation-payment';
   /** Identifies which form/page the lead came from. */
   pageName: string;
   /** Extra details, each written as a note on the lead. */
