@@ -14,10 +14,11 @@ import { SITE } from '@/lib/site';
  * 1. Save the lead (TeleCRM only, via /api/submit-lead) so no enquiry
  *    is lost if the visitor abandons payment.
  * 2. Create a Razorpay order server-side and open the Razorpay Checkout popup.
- * 3. Verify the payment signature server-side; only then go to /thank-you.
+ * 3. Verify the payment signature server-side; only then go to
+ *    /skin-hair-consultation/thank-you (its own page and conversion tags).
  *
  * Until Razorpay is configured (see lib/paidOffer.ts) the lead is saved and an
- * inline confirmation is shown instead — /thank-you (and its conversion tags)
+ * inline confirmation is shown instead — the thank-you page (and its tags)
  * is reserved for paid bookings. /api/razorpay/webhook records the payment
  * outcome in TeleCRM independently of this browser flow.
  *
@@ -102,7 +103,7 @@ export function CheckoutForm({ price, paymentEnabled }: { price: number | null; 
           });
           const result = await v.json().catch(() => ({}));
           if (!v.ok || !result.verified) throw new Error(result.error || 'Payment could not be verified.');
-          router.push(`/thank-you?payment_id=${encodeURIComponent(result.paymentId)}`);
+          router.push(`/skin-hair-consultation/thank-you?payment_id=${encodeURIComponent(result.paymentId)}`);
         } catch (err) {
           setError(
             `${err instanceof Error ? err.message : 'Payment could not be verified.'} If money was deducted, please call ${SITE.phoneDisplay} with your payment ID ${response.razorpay_payment_id}.`
